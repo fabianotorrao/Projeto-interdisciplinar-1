@@ -6,10 +6,6 @@ img, .card-img-top{
     object-fit: cover;
 }
 
-.card-deck{
-    margin-bottom: 35px;
-}
-
 .navbar-brand{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: bold;
@@ -112,4 +108,8 @@ img, .card-img-top{
 
 #maincontainer{
     padding-left: 15%;
+}
+
+p{
+    color: white;
 }
