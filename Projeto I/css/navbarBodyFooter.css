@@ -1,0 +1,96 @@
+#logotipoNav{
+    width: 118.5px;
+    height: 49px;
+}
+@media(max-width:1064px)
+{
+    #logotipoNav{
+        content: url("../images/icon_simples.png");
+        width: 66px;
+        height: 65px;
+        text-align: center;
+        margin-left: 50%;
+    }
+    
+}
+@media(min-width:991px)
+{
+    .ml-auto{
+        float:right;
+    }
+    
+}
+
+.navbar-expand-lg{
+    background-color:#10364F;
+    font-family: 'Calibri Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+
+
+    width: 100%;
+    text-align: center;
+}
+.navButton{
+
+    border-radius: 20px;
+    background-color: #D60B52;
+    width: 140px;
+    height: 50;
+    border: 0;
+    color: white;
+    transition: all 0.5s;
+    transition: all 0.5s;
+    
+}
+.navButton span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+  .navButton span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+  }
+  .navButton:hover span {
+    padding-right: 25px;
+  }
+  .navButton:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
+
+#menu{
+    background-color: #122738;
+    color: white ;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.nav-item{
+    margin-left: 30px;
+    align-items: center;
+}
+#userControls{
+    color: white;
+    font-weight: normal;
+
+}
+.badge{
+    border-radius: 20px;
+}
+body{
+    background-color: #edf2f9;
+}
+#footer{
+    background-color: #10364F;
+    color: white;
+    
+}
+.portoIcon{
+    border-radius: 20px;
+}
