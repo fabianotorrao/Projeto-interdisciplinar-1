@@ -1,0 +1,19 @@
+label{
+    font-size: 10px;
+    
+}
+.mission
+{
+    border-radius: 20px;
+    box-shadow: 2px 2px 2px  #E2E2E2;
+}
+h4{
+    font-family: 'Franklin Gothic Book', 'Arial Narrow', Arial, sans-serif;
+    color: #474558;
+}
+@media(max-width:991px)
+{
+    #missionsCard{
+        margin-top: 40px;
+    }
+}

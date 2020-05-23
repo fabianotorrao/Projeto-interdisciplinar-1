@@ -11,14 +11,14 @@
         text-align: center;
         margin-left: 50%;
     }
-    
+
 }
 @media(min-width:991px)
 {
     .ml-auto{
         float:right;
     }
-    
+
 }
 
 .navbar-expand-lg{
@@ -40,7 +40,7 @@
     color: white;
     transition: all 0.5s;
     transition: all 0.5s;
-    
+
 }
 .navButton span {
     cursor: pointer;
@@ -65,7 +65,7 @@
   }
 
 #menu{
-    background-color: #122738;
+    background-color: #10364F;
     color: white ;
     padding-left: 5%;
     padding-right: 5%;
@@ -89,8 +89,12 @@ body{
 #footer{
     background-color: #10364F;
     color: white;
-    
+
 }
 .portoIcon{
     border-radius: 20px;
+}
+.card{
+    border: 0;
+    box-shadow: 2px 2px 2px  #E2E2E2;
 }
