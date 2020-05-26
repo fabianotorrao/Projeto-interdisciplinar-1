@@ -1,0 +1,38 @@
+
+.card {
+    margin: 0 auto; /* Added */
+    float: none; /* Added */
+    margin-bottom: 10px; /* Added */
+}
+#profilecol{
+    height: 700px; 
+}
+#data{
+    margin:30px;
+}
+#imgprofile{
+    margin-top: 20px;
+}
+h3{
+    font-size: 42px;
+    font-weight: bold;
+}
+.card{
+    border: 0;
+    box-shadow: 2px 2px 2px  #E2E2E2;
+}
+#btnEdit:hover{
+    color: white;
+    width: 175px;
+}
+#btnEdit{
+    border-radius: 20px;
+    background-color: #D60B52;
+    width: 140px;
+    height: 50;
+    border: 0;
+    color: white;
+}
+textarea::-webkit-input-placeholder {
+    text-align: center;
+}

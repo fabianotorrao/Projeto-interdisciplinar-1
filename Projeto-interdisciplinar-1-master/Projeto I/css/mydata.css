@@ -1,0 +1,19 @@
+body{
+    background-color: #edf2f9;
+}
+#myDataItems{
+    background-color: white;
+    box-shadow: 2px 2px 2px 2px #E6E6E6;
+}
+.dataText{
+    color: #D60B52;
+}
+.activityDate{
+   padding-top: 9px;
+   padding-bottom: 9px;
+}
+.btn{
+    background-color: #D60B52;
+    color: white;
+    border-radius: 20px;
+}
