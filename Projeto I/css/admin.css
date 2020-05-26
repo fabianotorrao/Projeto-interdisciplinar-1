@@ -1,0 +1,20 @@
+.modality
+{
+    border-radius: 20px;
+    box-shadow: 2px 2px 2px  #E2E2E2;
+}
+.manBtn
+{
+    border-radius: 20px;
+    background-color:#1F78B4 ;
+    color: white;
+    border: 0;
+    width: 41px;
+    height: 41px;
+}
+@media(max-width:991px)
+{
+    .manage{
+        margin-top: 10px;
+    }
+}
