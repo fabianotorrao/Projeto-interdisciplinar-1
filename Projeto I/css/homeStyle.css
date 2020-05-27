@@ -100,6 +100,8 @@ body{
  
  #carddisplay{
      height: 200px;
+     background-color: white;
+     margin: 50px;
  }
  
  #cardstext{
@@ -119,6 +121,7 @@ body{
  
  #banner{
      background-color: #122738;
+     height: 60vh;
  }
  
  section{
