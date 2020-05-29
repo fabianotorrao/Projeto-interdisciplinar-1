@@ -15,9 +15,11 @@ class App {
 
         this._importDataFixtures();
         this._instantiateViews();
+        
     }
 
     _instantiateViews() {
+        
         const path = window.location.pathname
         const file = path.substr(path.lastIndexOf('/') + 1);
         const route = file.split('.')[0];
@@ -26,6 +28,7 @@ class App {
 
         for (const view of views) {
             new view();
+            
         }
     }
 
@@ -34,14 +37,18 @@ class App {
     }
 
     _importDataFixtures() {
+
+
         const users = [
             {
                 id: 1,
-                username: 'alexandre',
-                password: 'cunha'
+                email: "adminAppManager@geome.com",
+                username: 'AdminUser',
+                password: 'AdminAppUser'
             }
         ];
 
+        // Load the fixtures in case there is no data in the local storage 
         if (!localStorage.users) {
             localStorage.setItem('users', JSON.stringify(users));
         }
