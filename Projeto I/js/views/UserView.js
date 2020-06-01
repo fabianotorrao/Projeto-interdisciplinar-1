@@ -24,7 +24,7 @@ export default class UserView {
                 this.displayLoginMessage("User logged with success", 'success')
 
                 setTimeout(() => {
-                    location.href = "../html/activities.html";
+                    location.href = "./html/activities.html";
                 },
                     1000)
 
@@ -45,7 +45,7 @@ export default class UserView {
             console.log("entrou");
             this.userController.logOutUser()
             setTimeout(() => {
-                location.href = "../index.html"
+                location.href = "./index.html"
             },
                 1000)
         })

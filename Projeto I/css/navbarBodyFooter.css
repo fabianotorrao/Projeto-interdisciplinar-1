@@ -18,7 +18,6 @@
     .ml-auto{
         float:right;
     }
-
 }
 
 .navbar-expand-lg{
@@ -98,3 +97,8 @@ body{
     border: 0;
     box-shadow: 2px 2px 2px  #E2E2E2;
 }
+
+#btn-list{
+    text-align: left;
+}
+
