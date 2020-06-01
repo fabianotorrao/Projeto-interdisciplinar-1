@@ -29,15 +29,17 @@ export default class UserModel {
         localStorage.setItem('users', JSON.stringify(this.users));
     }
 
-    login(email) {
+    login(email,photo) {
         sessionStorage.setItem('loggedUser', email)
+        sessionStorage.setItem('userPhoto', photo)
         
     }
     
     //Faz logout do utilizador
     logOut() {
         window.sessionStorage.removeItem("loggedUser")
-        
+        window.sessionStorage.removeItem("userPhotoUser")
+        window.sessionStorage.removeItem("userName")
         console.log("fez logout");
 
     }
