@@ -4,12 +4,15 @@ class App {
         this.routes = {
             '': [
                 UserView
+
             ],
             'index': [
                 UserView
+                
             ],
             'activities': [
                 UserView
+
             ]
         };
 
