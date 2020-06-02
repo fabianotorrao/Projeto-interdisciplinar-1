@@ -9,7 +9,7 @@ body{
 .manBtn
 {
     border-radius: 20px;
-    background-color:#1F78B4 ;
+    background-color:#D60B52;
     color: white;
     border: 0;
     width: 41px;
@@ -47,7 +47,7 @@ body{
 
 .wrapper .top_navbar .top_menu{
     width: calc(100% - 70px);
-    background: #fff;
+    background: #10364F;
     height: 100%;
     border-top-right-radius: 20px;
     display: flex;
@@ -58,30 +58,10 @@ body{
 }
 
 .wrapper .top_navbar .top_menu .logo{
-    color: #10364F;
+    color: #fff;
     font-size: 20px;
     font-weight: 700;
     letter-spacing: 3px;
-}
-
-.wrapper .top_navbar .top_menu ul{
-    display: flex;
-
-}
-
-.wrapper .top_navbar .top_menu ul li a{
-    display: block;
-    margin: 0 10px;
-    width: 35px;
-    height: 35px;
-    line-height: 35px;
-    border: 1px solid #10364F;
-    border-radius: 50%;
-    text-align: center;
-}
-
-.wrapper .top_navbar .top_menu ul li a:hover{
-    background: #10364F;
 }
 
 .wrapper .sidebar{
@@ -99,10 +79,10 @@ body{
 .wrapper .sidebar ul li a{
     display: block;
     padding: 20px;
-    color: #fff;
+    color: #10364F;
     position: relative;
     margin-bottom: 1px;
-    color: #92a6e2;
+    color: #D60B52;
     white-space: nowrap;
 }
 
@@ -113,7 +93,7 @@ body{
     left: 0;
     width: 3px;
     height: 100%;
-    background: #92a6e2;
+    background: #10364F;
     display: none;
 }
 
@@ -126,9 +106,9 @@ body{
     display: inline-block;
 }
 
-.wrapper .sidebar ul li a:hover,
-.wrapper .sidebar ul li a.active{
-    background: #4360b5;
+.wrapper .sidebar ul li:hover,
+.wrapper .sidebar ul li.active{
+    background: #10364F;
     color: #fff;
 }
 
