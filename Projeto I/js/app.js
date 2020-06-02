@@ -47,7 +47,8 @@ class App {
                 id: 1,
                 email: "adminAppManager@geome.com",
                 username: 'AdminUser',
-                password: 'AdminAppUser'
+                password: 'AdminAppUser',
+                type: "admin"
             }
         ];
 
