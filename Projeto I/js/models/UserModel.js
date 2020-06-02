@@ -7,7 +7,7 @@ export default class UserModel {
         return this.users
     }
 
-    registerUser(email, username, password, location, genre, weight, birthDate, aboutUser, height,photo){
+    registerUser(email, username, password, location, genre, weight, birthDate, aboutUser, height,photo, type){
         const user = {
             id: this.users.length > 0 ? this.users[this.users.length - 1].id + 1 : 1,
             email: email,
@@ -19,7 +19,8 @@ export default class UserModel {
             birthDate: birthDate,
             aboutUser: aboutUser,
             height: height,
-            photo: photo
+            photo: photo,
+            type: type
         }
         this.users.push(user)
         this._persist()
@@ -31,7 +32,6 @@ export default class UserModel {
 
     login(email,photo) {
         sessionStorage.setItem('loggedUser', email)
-        sessionStorage.setItem('userPhoto', photo)
         
     }
     
