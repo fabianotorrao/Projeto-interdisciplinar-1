@@ -134,23 +134,23 @@ body{
     line-height: 22px;
 }
 
-.wrapper .collapse .sidebar{
+.wrapper .collapseside .sidebar{
     width: 70px;
 }
 
-.wrapper .collapse .sidebar ul li a{
+.wrapper .collapseside .sidebar ul li a{
     text-align: center;
 }
 
-.wrapper .collapse .sidebar ul li a span.icon{
+.wrapper .collapseside .sidebar ul li a span.icon{
     margin: 0;
 }
 
-.wrapper .collapse .sidebar ul li a span.title{
+.wrapper .collapseside .sidebar ul li a span.title{
     display: none;
 }
 
-.wrapper .collapse .main_container{
+.wrapper .collapseside .main_container{
     width: calc(100% - 70px);
     margin-left: 70px;
 }
