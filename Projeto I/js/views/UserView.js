@@ -81,11 +81,7 @@ export default class UserView {
                 this.displayLoginMessage("User logged with success", 'success')
  
                 setTimeout(() => {
-<<<<<<< HEAD
-                    location.href = "./html/activities.html";
-=======
                     window.location.href = "../html/activities.html";
->>>>>>> c91f88a626e85c7092111c98a8745431bf72b2de
                 },
                     1000)
 
@@ -110,11 +106,7 @@ export default class UserView {
        this.logOutBtn.addEventListener('click', event => {
            this.userController.logOutUser()
             setTimeout(() => {
-<<<<<<< HEAD
-                location.href = "./index.html"
-=======
                 window.location.href = "../index.html"
->>>>>>> c91f88a626e85c7092111c98a8745431bf72b2de
             },
                 1000)
         })
@@ -139,7 +131,7 @@ export default class UserView {
                 if(this.registerUserName.value === "" || this.registerEmail.value === "" || this.registerPassword.value === "" || this.registerConfirmPassword.value === "" || this.registerLocation.value === "" || this.registerGenre.value === "" || this.registerWeight.value === "" || this.registerBornDate.value === "" || this.registerAboutYou.value === "" || this.registerheight.value === ""){
                     throw Error('Please field all the fields');
                 }else{
-                    this.userController.createUser(this.registerEmail.value, this.registerUserName.value, this.registerPassword.value, this.registerLocation.value, this.registerGenre.value, this.registerWeight.value, this.registerBornDate.value, this.registerAboutYou.value, this.registerheight.value, this.registerPhoto.value);
+                    this.userController.createUser(this.registerEmail.value, this.registerUserName.value, this.registerPassword.value, this.registerLocation.value, this.registerGenre.value, this.registerWeight.value, this.registerBornDate.value, this.registerAboutYou.value, this.registerheight.value, this.registerPhoto.value, "user");
                     this.registerLoadPhotoRegister.setAttribute("src",this.registerPhoto.value)
                     this.displayRegisterMessage('User registered with success!', 'success');
                    
