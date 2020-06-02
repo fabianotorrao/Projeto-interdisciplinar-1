@@ -25,9 +25,9 @@ export default class UserController {
             throw Error('Email ou Password errado! Por favor tente novamente');
         }
     }
-    createUser(email, username, password, location, genre, weight, birthDate, aboutUser, height, photo){
+    createUser(email, username, password, location, genre, weight, birthDate, aboutUser, height, photo, type){
         if (!this.userModel.getAll().some(user => user.email === email)){
-            this.userModel.registerUser(email, username, password, location, genre, weight, birthDate, aboutUser, height, photo)
+            this.userModel.registerUser(email, username, password, location, genre, weight, birthDate, aboutUser, height, photo, type)
         }else{
             throw Error(`User with email "${email}" already exists!`)
         }
