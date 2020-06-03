@@ -1,4 +1,5 @@
 import UserView from './views/UserView.js'
+import AdminView from './views/AdminView.js'
 class App {
     constructor() {
         this.routes = {
@@ -13,6 +14,9 @@ class App {
             'activities': [
                 UserView
 
+            ],
+            'admin': [
+                AdminView
             ]
         };
 
