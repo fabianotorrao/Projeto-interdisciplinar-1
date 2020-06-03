@@ -38,17 +38,17 @@
                     </span>
                     <span id="users-tab" class="title">Users/Admins</span>
                 </a></li>
-                <li class="list-group-item"><a class="nav-link" data-toggle="pill" href="#users" role="tab" aria-controls="users" aria-selected="false" href="#">
+                <li class="list-group-item"><a class="nav-link" data-toggle="pill" href="#categories" role="tab" aria-controls="categories" aria-selected="false" href="#">
                     <span class="icon">
                         <i class="fas fa-book"></i>
                     </span>
-                    <span id="categories-tab" class="title nav-link" data-toggle="pill" href="#categories" role="tab" aria-controls="categories" aria-selected="false">Categories</span>
+                    <span class="title">Categories</span>
                 </a></li>
-                <li class="list-group-item"><a class="nav-link" data-toggle="pill" href="#users" role="tab" aria-controls="users" aria-selected="false" href="#"">
+                <li class="list-group-item"><a class="nav-link" data-toggle="pill" href="#missions" role="tab" aria-controls="missions" aria-selected="false" href="#"">
                     <span class="icon">
                         <i class="fas fa-trophy"></i>
                     </span> 
-                    <span id="missions-tab" class="title nav-link" data-toggle="pill" href="#missions" role="tab" aria-controls="missions" aria-selected="false">Missions</span>
+                    <span class="title">Missions</span>
                 </a></li>
                 <li class="list-group-item"><a id="stats-tab" class="nav-link" data-toggle="pill" href="#stats" role="tab" aria-controls="stats" aria-selected="false" href="#">
                     <span class="icon">
@@ -60,7 +60,7 @@
         </div>
 
         <div id="tabContent" class="tab-content">
-            <div class="tab-pane fade show active" id="users" role="tabpanel" aria-labelledby="users">
+            <div class="tab-pane fade show active" id="users" role="tabpanel" aria-labelledby="users-tab">
                 <div class="main_container">
                     <div class="item">
                         <div class="col-lg-12 text-center manage d-flex justify-content-center">
@@ -74,11 +74,8 @@
                                         <div class="mb-5  col-lg-5 d-flex justify-content-center">
                                             <h4>Name</h4>
                                         </div>
-            
-                                        
                                         <div class="mb-5  col-lg-5 d-flex justify-content-center">user</div>
                                         <div class="mb-5  col-lg-5 d-flex justify-content-center">name</div>
-            
                                     </div>
                                     <div class="d-flex justify-content-center pt-3">
                                         <div class="m-3 "> <button class="manBtn" id="AddUser" data-toggle="modal" data-target="#RegisterAdmModal">
@@ -101,41 +98,45 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="categories" role="tabpanel" aria-labelledby="categories">
-                <div class="tab-pane fade show active" id="categories" role="tabpanel" aria-labelledby="categories">
-                    <p style="text-align: center;">teste</p>
-                    <p style="text-align: center;">teste</p>
-                    <p style="text-align: center;">teste</p>
-                    <p style="text-align: center;">teste</p>
-                    <p style="text-align: center;">teste</p>
-                    <p style="text-align: center;">teste</p>
+                <div class="tab-pane fade show active" id="categories" role="tabpanel" aria-labelledby="categories-tab">
+                    <div class="main_container">
+                        <p style="text-align: center;">teste</p>
+                        <p style="text-align: center;">teste</p>
+                        <p style="text-align: center;">teste</p>
+                        <p style="text-align: center;">teste</p>
+                        <p style="text-align: center;">teste</p>
+                        <p style="text-align: center;">teste</p>
+                    </div>
                 </div>
             </div>
             <div class="tab-pane fade" id="missions" role="tabpanel" aria-labelledby="missions">
-                <div class="tab-pane fade show active" id="missions" role="tabpanel" aria-labelledby="missions">
-                    <p style="text-align: center;">teste1</p>
-                    <p style="text-align: center;">teste1</p>
-                    <p style="text-align: center;">teste1</p>
-                    <p style="text-align: center;">teste1</p>
-                    <p style="text-align: center;">teste1</p>
-                    <p style="text-align: center;">teste1</p>
+                <div class="tab-pane fade show active" id="missions" role="tabpanel" aria-labelledby="missions-tab">
+                    <div class="main_container">
+                        <p style="text-align: center;">teste1</p>
+                        <p style="text-align: center;">teste1</p>
+                        <p style="text-align: center;">teste1</p>
+                        <p style="text-align: center;">teste1</p>
+                        <p style="text-align: center;">teste1</p>
+                        <p style="text-align: center;">teste1</p>
+                    </div>
                 </div>
             </div>
+        
             <div class="tab-pane fade" id="stats" role="tabpanel" aria-labelledby="stats">
-                <div class="tab-pane fade show active" id="stats" role="tabpanel" aria-labelledby="stats">
-                    <p style="text-align: center;">teste2</p>
-                    <p style="text-align: center;">teste2</p>
-                    <p style="text-align: center;">teste2</p>
-                    <p style="text-align: center;">teste2</p>
-                    <p style="text-align: center;">teste2</p>
-                    <p style="text-align: center;">teste2</p>
+                <div class="tab-pane fade show active" id="stats" role="tabpanel" aria-labelledby="stats-tab">
+                    <div class="main_container">
+                        <p style="text-align: center;">teste2</p>
+                        <p style="text-align: center;">teste2</p>
+                        <p style="text-align: center;">teste2</p>
+                        <p style="text-align: center;">teste2</p>
+                        <p style="text-align: center;">teste2</p>
+                        <p style="text-align: center;">teste2</p>
+                    </div>
                 </div>
             </div>
         </div>   
     </div>
         
-    
-
-
 <!--create admin modal-->
     <div class="modal fade" id="RegisterAdmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
@@ -146,7 +147,6 @@
 
             <div class="col-lg-12 d-flex justify-content-center"><img src="../images/modalIcon.png"
                 style="width: 131px; height:29px ;">
-
             </div>
           </div>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -179,9 +179,7 @@
 
             </div>
             <div id="AdminRegisterMessage" class="col-lg-12 d-flex justify-content-center">
-              
             </div>
-
           </div>
         </div>
       </div>
