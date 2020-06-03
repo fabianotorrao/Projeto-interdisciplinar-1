@@ -47,7 +47,7 @@ export default class AdminView {
                 }else{
                     
 
-                    this.UserController.createUser(this.AdminEmail.value,"admin",this.AdminPasswordConfirm,"","","","","","","","admnin")
+                    this.UserController.createUser(this.AdminEmail.value,"admin",this.AdminPasswordConfirm.value,"","","","","","","","admnin")
                     this.displayRegisterMessage("Admin registered with success!",'success')
                     setTimeout(() => {
                         window.location.href = "admin.html";
