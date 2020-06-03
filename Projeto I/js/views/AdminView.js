@@ -21,7 +21,7 @@ export default class AdminView {
 
     }
 
-    bindLoadPage(){
+    /* bindLoadPage(){
         addEventListener("load",event=>{
 
                 //problema para listar os users chegar ao get all do user modal // this.getAll().forEach(element => {
@@ -33,7 +33,7 @@ export default class AdminView {
                 
         
         })
-    }
+    }*/
     
     bindRegisterAdm() {
         this.AddBtn.addEventListener('click', event => {
