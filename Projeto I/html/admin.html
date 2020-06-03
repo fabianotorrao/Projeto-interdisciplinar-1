@@ -30,27 +30,27 @@
             </div>
         </div>
 
-        <div class="sidebar">
+        <div id="v-pills-tab" class="sidebar nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
             <ul class="list-group">
-                <li class="list-group-item"><a href="#">
+                <li class="list-group-item active"><a class="nav-link" data-toggle="pill" href="#users" role="tab" aria-controls="users" aria-selected="false" href="#">
                     <span class="icon">
                         <i class="far fa-user"></i>
                     </span>
-                    <span class="title">Users/Admins</span>
+                    <span id="users-tab" class="title">Users/Admins</span>
                 </a></li>
-                <li class="list-group-item"><a href="#">
+                <li class="list-group-item"><a class="nav-link" data-toggle="pill" href="#users" role="tab" aria-controls="users" aria-selected="false" href="#">
                     <span class="icon">
                         <i class="fas fa-book"></i>
                     </span>
-                    <span class="title">Categories</span>
+                    <span id="categories-tab" class="title nav-link" data-toggle="pill" href="#categories" role="tab" aria-controls="categories" aria-selected="false">Categories</span>
                 </a></li>
-                <li class="list-group-item"><a href="#">
+                <li class="list-group-item"><a class="nav-link" data-toggle="pill" href="#users" role="tab" aria-controls="users" aria-selected="false" href="#"">
                     <span class="icon">
                         <i class="fas fa-trophy"></i>
-                    </span>
-                    <span class="title">Missions</span>
+                    </span> 
+                    <span id="missions-tab" class="title nav-link" data-toggle="pill" href="#missions" role="tab" aria-controls="missions" aria-selected="false">Missions</span>
                 </a></li>
-                <li class="list-group-item"><a href="#">
+                <li class="list-group-item"><a id="stats-tab" class="nav-link" data-toggle="pill" href="#stats" role="tab" aria-controls="stats" aria-selected="false" href="#">
                     <span class="icon">
                         <i class="fas fa-chart-bar"></i>
                     </span>
@@ -59,52 +59,81 @@
             </ul>
         </div>
 
-        <div class="main_container">
-            <div class="item">
-                <div class="col-lg-12 text-center manage d-flex justify-content-center">
-                    <div class="card col-lg-12">
-                        <div class="card-body">
-                            <h3 class="pr-2 text-muted d-flex justify-content-start mb-4">Manage Users/admins</h3>
-                            <div class="row d-flex justify-content-center col-xs-5 mr-4 userList ">
-                                <div class="mb-5  col-lg-5 d-flex justify-content-center ">
-                                    <h4>UserType</h4>
+        <div id="tabContent" class="tab-content">
+            <div class="tab-pane fade show active" id="users" role="tabpanel" aria-labelledby="users">
+                <div class="main_container">
+                    <div class="item">
+                        <div class="col-lg-12 text-center manage d-flex justify-content-center">
+                            <div class="card col-lg-12">
+                                <div class="card-body">
+                                    <h3 class="pr-2 text-muted d-flex justify-content-start mb-4">Manage Users/admins</h3>
+                                    <div class="row d-flex justify-content-center col-xs-5 mr-4 userList ">
+                                        <div class="mb-5  col-lg-5 d-flex justify-content-center ">
+                                            <h4>UserType</h4>
+                                        </div>
+                                        <div class="mb-5  col-lg-5 d-flex justify-content-center">
+                                            <h4>Name</h4>
+                                        </div>
+            
+                                        
+                                        <div class="mb-5  col-lg-5 d-flex justify-content-center">user</div>
+                                        <div class="mb-5  col-lg-5 d-flex justify-content-center">name</div>
+            
+                                    </div>
+                                    <div class="d-flex justify-content-center pt-3">
+                                        <div class="m-3 "> <button class="manBtn" id="AddUser" data-toggle="modal" data-target="#RegisterAdmModal">
+                                            <i class="fa fa-plus "></i></button>
+                                        </div>
+                                        <div class="m-3"><button class="manBtn" id="removeUser">
+                                            <i class="fa fa-trash "></i></button>
+                                         </div>
+                                        <div class="m-3"> <button class="manBtn" id="EditUser">
+                                            <i class="fa fa-pencil-square-o "></i></button>
+                                        </div>
+                                        <div class="m-3"> <button class="manBtn" id="blockUser">
+                                            <i class="fa fa-ban"></i></button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="mb-5  col-lg-5 d-flex justify-content-center">
-                                    <h4>Name</h4>
-                                </div>
-    
-                                
-                                <div class="mb-5  col-lg-5 d-flex justify-content-center">user</div>
-                                <div class="mb-5  col-lg-5 d-flex justify-content-center">name</div>
-    
                             </div>
-                            <div class="d-flex justify-content-center pt-3">
-    
-                                <div class="m-3 "> <button class="manBtn" id="AddUser" data-toggle="modal" data-target="#RegisterAdmModal"><i
-                                            class="fa fa-plus "></i></button></div>
-                                <div class="m-3"><button class="manBtn" id="removeUser"><i
-                                            class="fa fa-trash "></i></button></div>
-                                <div class="m-3"> <button class="manBtn" id="EditUser"><i
-                                            class="fa fa-pencil-square-o "></i></button></div>
-                                <div class="m-3"> <button class="manBtn" id="blockUser"><i
-                                            class="fa fa-ban"></i></button></div>
-                            </div>
-    
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="item">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+            <div class="tab-pane fade" id="categories" role="tabpanel" aria-labelledby="categories">
+                <div class="tab-pane fade show active" id="categories" role="tabpanel" aria-labelledby="categories">
+                    <p>teste</p>
+                    <p>teste</p>
+                    <p>teste</p>
+                    <p>teste</p>
+                    <p>teste</p>
+                    <p>teste</p>
+                </div>
             </div>
-            <div class="item">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+            <div class="tab-pane fade" id="missions" role="tabpanel" aria-labelledby="missions">
+                <div class="tab-pane fade show active" id="missions" role="tabpanel" aria-labelledby="missions">
+                    <p>teste1</p>
+                    <p>teste1</p>
+                    <p>teste1</p>
+                    <p>teste1</p>
+                    <p>teste1</p>
+                    <p>teste1</p>
+                </div>
             </div>
-            <div class="item">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+            <div class="tab-pane fade" id="stats" role="tabpanel" aria-labelledby="stats">
+                <div class="tab-pane fade show active" id="stats" role="tabpanel" aria-labelledby="stats">
+                    <p>teste2</p>
+                    <p>teste2</p>
+                    <p>teste2</p>
+                    <p>teste2</p>
+                    <p>teste2</p>
+                    <p>teste2</p>
+                </div>
             </div>
-        </div>
+        </div>   
     </div>
+        
+    
 
 
 <!--create admin modal-->
