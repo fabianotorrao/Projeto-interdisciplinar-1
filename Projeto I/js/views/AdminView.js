@@ -4,6 +4,7 @@ import UserModel from '../models/UserModel.js'
 export default class AdminView {
 
     constructor() {
+        this.userModel = new UserModel()
         this.UserController = new UserController()
           
         this.AddBtn = document.querySelector("#btnSubmit")
@@ -11,29 +12,55 @@ export default class AdminView {
         this.AdminPassword = document.querySelector("#txtPasswordRegister")
         this.AdminPasswordConfirm = document.querySelector("#txtPasswordRegisterConfirm")
         this.RegisterMessage=document.querySelector("#AdminRegisterMessage")
-        this.userList=document.querySelector(".userList")
+        this.RegisterAdminUserName = document.querySelector("#txtUserName")
+        this.userList=document.querySelector(".table")
 
         
 
 
         
         this.bindRegisterAdm()
+        this.bindLoadPage()
 
     }
 
-    /* bindLoadPage(){
-        addEventListener("load",event=>{
+    bindLoadPage(){
+        window.addEventListener("load", event=>{
+            
+                for(let i = 0 ; i <= [this.userModel.users.length -1]; i++){
 
-                //problema para listar os users chegar ao get all do user modal // this.getAll().forEach(element => {
-                    const type=element.type
-                    const name=element.name
-                this.userList.innerHTML+=`<div class="mb-5  col-lg-5 d-flex justify-content-center">${type}</div>
-                <div class="mb-5  col-lg-5 d-flex justify-content-center">${name}</div>`
-                });
+                    
+                    if (JSON.parse(localStorage.getItem('users'))[i].type === "admin" || JSON.parse(localStorage.getItem('users'))[i].type === "user" ){ 
+                        const type = JSON.parse(localStorage.getItem('users'))[i].type
+                        const name = JSON.parse(localStorage.getItem('users'))[i].username
+                        
+                        this.userList.innerHTML+=`
+                        <tbody>
+                          <tr class="">
+                            <td>
+                                <button class="btnAdminTable btn">
+                                    ${type}
+                                </button>
+                            </td>
+                            <td>
+                            <button class="btnAdminTable btn">
+                                ${name}
+                            </button>
+                            </td>
+                          </tr>
+                        </tbody>`
+                        /*this.userList.innerHTML+=`<div class="mb-5  col-lg-5 d-flex justify-content-center">${type}</div>
+                        <div class="mb-5  col-lg-5 d-flex justify-content-center">${name}</div>`*/
+                    }else{
+                        
+                    }
+                }
+                   
+                
                 
         
         })
-    }*/
+    }
     
     bindRegisterAdm() {
         this.AddBtn.addEventListener('click', event => {
@@ -47,7 +74,7 @@ export default class AdminView {
                 }else{
                     
 
-                    this.UserController.createUser(this.AdminEmail.value,"admin",this.AdminPasswordConfirm.value,"","","","","","","","admnin")
+                    this.UserController.createUser(this.AdminEmail.value,this.RegisterAdminUserName.value,this.AdminPasswordConfirm.value,"","","","","","","","admin")
                     this.displayRegisterMessage("Admin registered with success!",'success')
                     setTimeout(() => {
                         window.location.href = "admin.html";
