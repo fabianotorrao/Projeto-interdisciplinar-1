@@ -111,8 +111,8 @@ body{
     color: #fff;
 }
 
-.wrapper .sidebar ul li a:hover:before,
-.wrapper .sidebar ul li a.active:before{
+.wrapper .sidebar ul li.hover:before,
+.wrapper .sidebar ul li.active:before{
     display: block;
 
 }
