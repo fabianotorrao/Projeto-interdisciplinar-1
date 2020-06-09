@@ -105,16 +105,18 @@ body{
     display: inline-block;
 }
 
+.wrapper .sidebar ul li{
+    background-color: #10364F;
+}
 .wrapper .sidebar ul li:hover,
-.wrapper .sidebar ul li.active{
-    background: #10364F;
+.wrapper .sidebar ul li:active{
+    background: #fff;
     color: #fff;
 }
 
 .wrapper .sidebar ul li.hover:before,
 .wrapper .sidebar ul li.active:before{
     display: block;
-
 }
 
 .wrapper .main_container{
@@ -177,4 +179,8 @@ tr{
 }
 .btnAdminTable:hover{
     color: white;
+}
+
+.nav-pills .nav-link.active{
+    background-color: #D60B52;
 }
