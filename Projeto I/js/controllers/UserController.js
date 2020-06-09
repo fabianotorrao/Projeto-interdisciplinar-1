@@ -33,7 +33,7 @@ export default class UserController {
         }
     }
     editUser(email, username, password, location, genre, weight, birthDate, aboutUser, height, photo, type,id) {
-        if (this.userModel.getAll().filter(user => user.email == email && user.id==id).length==1) {
+        if ((this.userModel.getAll().filter(user => user.email == email && user.id==id).length==1)||(this.userModel.getAll().filter(user => user.email == email).length==0)) {
             console.log(this.userModel.getAll().filter(user => user.email === email).length)
             this.userModel.editUser(email, username, password, location, genre, weight, birthDate, aboutUser, height, photo, type,id)
         } else {
