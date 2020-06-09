@@ -28,12 +28,13 @@
 
     width: 100%;
     text-align: center;
+    align-items: center;
 }
 .navButton{
 
     border-radius: 20px;
     background-color: #D60B52;
-    width: 140px;
+    width: 200px;
     height: 50;
     border: 0;
     color: white;
@@ -71,7 +72,7 @@
 }
 
 .nav-item{
-    margin-left: 30px;
+   
     align-items: center;
 }
 #userControls{
@@ -101,4 +102,3 @@ body{
 #btn-list{
     text-align: left;
 }
-

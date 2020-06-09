@@ -153,3 +153,28 @@ body{
     width: calc(100% - 70px);
     margin-left: 70px;
 }
+table{
+    background-color: #10364F;
+}
+td{
+    color: white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 19px;
+}
+tr{
+    background-color: #10364F;
+    color: white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 19px;
+}
+.btnAdminTable{
+    background-color: #D60B52;
+    border-radius: 9px;
+    width: 175px;
+    color: white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 19px;
+}
+.btnAdminTable:hover{
+    color: white;
+}

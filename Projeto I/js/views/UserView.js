@@ -79,9 +79,12 @@ export default class UserView {
             try {
                 this.userController.loginUser(this.loginEmail.value, this.loginPassword.value)
                 this.displayLoginMessage("User logged with success", 'success')
- 
+                let pageSelectionpath;
+                if (sessionStorage.getItem("userType")==="user") {
+                   pageSelectionpath="./html/activities.html" 
+                }else{pageSelectionpath="./html/admin.html"}
                 setTimeout(() => {
-                    window.location.href = "../html/activities.html";
+                    window.location.href = pageSelectionpath;
                 },
                     1000)
 
