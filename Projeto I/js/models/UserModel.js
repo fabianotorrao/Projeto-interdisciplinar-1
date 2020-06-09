@@ -48,4 +48,27 @@ export default class UserModel {
     isLogged() {
         return sessionStorage.getItem("loggedUser") !== null ? true : false
     }
+    remove(id){
+        this.users=this.users.filter(user=>user.id!=id)
+        this._persist()
+    }
+    editUser(email, username, password, location, genre, weight, birthDate, aboutUser, height,photo, type,id){
+        const usernew = {
+            id: id,
+            email: email,
+            username: username,
+            password: password,
+            location: location,
+            genre: genre,
+            weight: weight,
+            birthDate: birthDate,
+            aboutUser: aboutUser,
+            height: height,
+            photo: photo,
+            type: type
+        }
+        console.log(usernew)
+        this.users= this.users.map(user=>user.id==usernew.id?usernew:user)
+        this._persist()
+    }
 }
