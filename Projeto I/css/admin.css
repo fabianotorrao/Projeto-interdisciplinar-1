@@ -69,11 +69,10 @@ body{
     top: 70px;
     left: 10px;
     background: #10364F;
-    width: 200px;
+    width: 215px;
     height: calc(100% - 80px);
     border-bottom-left-radius: 20px;
     transition: all 0.3s ease;
-
 }
 
 .wrapper .sidebar ul li a{
