@@ -1,11 +1,15 @@
 import UserController from '../controllers/UserController.js'
 import UserModel from '../models/UserModel.js'
+import categoryModel from '../models/categoryModel.js'
+import categoryController from '../controllers/categoryController.js'
 
 export default class AdminView {
 
   constructor() {
     this.userModel = new UserModel()
     this.UserController = new UserController()
+    this.categoryModel = new categoryModel()
+    this.categoryController = new categoryController()
 
     this.AddBtn = document.querySelector("#btnSubmit")
     this.AdminEmail = document.querySelector("#txtEmail")
@@ -13,10 +17,22 @@ export default class AdminView {
     this.AdminPasswordConfirm = document.querySelector("#txtPasswordRegisterConfirm")
     this.RegisterMessage = document.querySelector("#AdminRegisterMessage")
     this.RegisterAdminUserName = document.querySelector("#txtUserName")
-    this.userList = document.querySelector(".table")
+    this.userList = document.querySelector("#usersTable")
+    this.categoryList = document.querySelector("#categoryTable")
     this.deleteUser = document.querySelector("#removeUser")
     this.editUserBtn = document.querySelector("#EditUser")
     this.userEditModal = document.querySelector("#UserEditmodal")
+    this.logoutBtn = document.querySelector(".logout")
+    this.addCategoryBtn = document.querySelector("#btnAddCategory")
+    this.addCategoryTxt = document.querySelector("#txtcategory")
+    this.addCategoryMessage = document.querySelector("#CategoryRegisterMessage")
+    this.deleteCategory = document.querySelector("#removeCategory")
+
+
+    this.editCategoryTxtInner = document.querySelector("#txtcategoryEditInner")
+    this.CategoryEditBtn = document.querySelector("#btnEditCategory")
+    
+    this.editCategoryMessage = document.querySelector("#CategoryEditMessage")
 
 
 
@@ -28,6 +44,10 @@ export default class AdminView {
     this.bindRegisterAdm()
     this.bindLoadPage()
     this.bindRemoveUser()
+    this.bindLogout()
+    this.bindAddCategory()
+    this.bindRemoveCategory()
+    this.bindEditCategory()
 
 
 
@@ -35,6 +55,82 @@ export default class AdminView {
 
   }
 
+  bindEditCategory() {
+    this.CategoryEditBtn.addEventListener("click", event => {
+      event.preventDefault()
+      try {
+        this.categoryEditTxt = document.querySelector("#txtcategoryEdit")
+        if (this.categoryEditTxt.value !="") {
+          //edit
+          this.categoryController.editCategory(this.categoryEditTxt.value, sessionStorage.getItem('selectedCategory'))
+          this.displayEditCategoryMessage("Category Edited", "success")
+          setTimeout(() => {
+            window.location.href = "admin.html";
+          },
+            1000) 
+        }
+        else {
+          throw Error("Field is empty")
+        }
+      }
+      catch (e) {
+        console.log("empty")
+        this.displayEditCategoryMessage(e, 'danger')
+      }
+
+
+
+    })
+  }
+  bindRemoveCategory() {
+    this.deleteCategory.addEventListener("click", event => {
+      if (confirm(`Delete ${sessionStorage.getItem('selectedCategory')}`)) {
+        this.categoryController.deleteCategory(sessionStorage.getItem('selectedCategory'))
+        setTimeout(() => {
+          window.location.href = "admin.html";
+        },
+          1000)
+      }
+
+    })
+
+  }
+
+  bindAddCategory() {
+    this.addCategoryBtn.addEventListener("click", event => {
+      event.preventDefault()
+      try {
+        if (this.addCategoryTxt.value != "") {
+          this.categoryController.addCategory(this.addCategoryTxt.value)
+          this.displayCategoryMessage('Category Added', 'success')
+          setTimeout(() => {
+            window.location.href = "admin.html";
+          },
+            1000)
+
+        }
+        else {
+          throw Error("Field is empty")
+        }
+
+      } catch (e) {
+        this.displayCategoryMessage(e, 'danger')
+      }
+
+
+    })
+
+  }
+
+  bindLogout() {
+    this.logoutBtn.addEventListener("click", event => {
+      this.userModel.logOut()
+      setTimeout(() => {
+        window.location.href = "../index.html"
+      },
+        1000)
+    })
+  }
 
   bindEditUser() {
     this.editBtn = document.querySelector("#btnEdit")
@@ -81,32 +177,32 @@ export default class AdminView {
         }
       }
       else {
-        try{
-        if (this.editPassword.value === this.editConfirmPassword.value) {
-          if (this.editEmail.value != "" && this.editUserName.value != "" && this.editPassword.value != "" && this.editConfirmPassword.value != "") {
-            if (confirm("Are you Sure to edit?")) {
-              this.UserController.editUser(this.editEmail.value, this.editUserName.value, this.editPassword.value, "", "", "", "", "", "", "", "admin", sessionStorage.getItem('selectedUser'))
-              this.displayEditMessage("Admin Edited with success", 'success')
-              setTimeout(() => {
-                window.location.href = "admin.html";
-              },
-                1000)
+        try {
+          if (this.editPassword.value === this.editConfirmPassword.value) {
+            if (this.editEmail.value != "" && this.editUserName.value != "" && this.editPassword.value != "" && this.editConfirmPassword.value != "") {
+              if (confirm("Are you Sure to edit?")) {
+                this.UserController.editUser(this.editEmail.value, this.editUserName.value, this.editPassword.value, "", "", "", "", "", "", "", "admin", sessionStorage.getItem('selectedUser'))
+                this.displayEditMessage("Admin Edited with success", 'success')
+                setTimeout(() => {
+                  window.location.href = "admin.html";
+                },
+                  1000)
+              }
+
+            } else {
+              throw Error("There are empty fields")
             }
 
-          }else {
-            throw Error("There are empty fields")
+          } else {
+            throw Error("Password and Confirm Password are not equal")
           }
 
-        }else {
-          throw Error("Password and Confirm Password are not equal")
         }
+        catch (e) {
+          this.displayEditMessage(e, "danger")
+        }
+      }
 
-      }
-      catch (e) {
-        this.displayEditMessage(e, "danger")
-      }
-    }
-      
 
 
     })
@@ -277,6 +373,19 @@ export default class AdminView {
       this.bindEditUser()
     }
   }
+  bindCategoryRow() {
+    for (let index = 0; index < document.querySelectorAll(".Category").length; index++) {
+      const element = document.querySelectorAll(".Category")[index];
+      element.addEventListener("click", event => {
+        sessionStorage.setItem('selectedCategory', event.target.id)
+        this.editCategoryTxtInner.innerHTML = `<div class="form-group d-flex justify-content-center" id="txtcategoryEditInner">
+      <input type="text" class="form-control col-lg-6  modalField" id="txtcategoryEdit"
+        aria-describedby="emailHelp" placeholder="Category" value="${sessionStorage.getItem('selectedCategory')}">
+    </div>`
+      })
+
+    }
+  }
   bindUserRow() {
 
     for (let index = 0; index < document.querySelectorAll(".U").length; index++) {
@@ -328,9 +437,27 @@ export default class AdminView {
       }
       this.bindUserRow()
 
+      for (let i = 0; i <= [this.categoryModel.categories.length - 1]; i++) {
+        const category = JSON.parse(localStorage.getItem('categories'))[i]
+        this.categoryList.innerHTML += `
+              
+              <tr class="categoryData" >
+                <td>
+                    <button class="btnAdminTable btn Category" id="${category}">
+                        ${category}
+                    </button>
+                </td>
+                
+              </tr>
+            `
 
-
+      }
+      this.bindCategoryRow()
     })
+
+
+
+
   }
 
 
@@ -364,6 +491,15 @@ export default class AdminView {
   displayRegisterMessage(message, type) {
     this.RegisterMessage.innerHTML =
       `<div class="alert alert-${type} d-flex justify-content-center" role="alert">${message}</div>`;
+  }
+  displayCategoryMessage(message, type) {
+    this.addCategoryMessage.innerHTML =
+      `<div class="alert alert-${type} d-flex justify-content-center" role="alert">${message}</div>`;
+  }
+  displayEditCategoryMessage(message, type) {
+    this.editCategoryMessage.innerHTML =
+      `<div class="alert alert-${type} d-flex justify-content-center" role="alert">${message}</div>`
+
   }
 
 
