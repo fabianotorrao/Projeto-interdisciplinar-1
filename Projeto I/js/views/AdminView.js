@@ -29,6 +29,7 @@ export default class AdminView {
     this.logoutBtn = document.querySelector(".logout")
     this.addCategoryBtn = document.querySelector("#btnAddCategory")
     this.addCategoryTxt = document.querySelector("#txtcategory")
+    this.addCategoryIMG=document.querySelector("#txtCategory_IMG")
     this.addCategoryMessage = document.querySelector("#CategoryRegisterMessage")
     this.deleteCategory = document.querySelector("#removeCategory")
     this.missionList = document.querySelector("#MissionsTable")
@@ -37,6 +38,7 @@ export default class AdminView {
     this.CategoryEditBtn = document.querySelector("#btnEditCategory")
 
     this.editCategoryMessage = document.querySelector("#CategoryEditMessage")
+    this.editCategoryPhoto=document.querySelector("#txtCategory_IMGEdit")
 
     this.missionDeleteBtn = document.querySelector("#removeMission")
 
@@ -189,9 +191,10 @@ export default class AdminView {
       event.preventDefault()
       try {
         this.categoryEditTxt = document.querySelector("#txtcategoryEdit")
-        if (this.categoryEditTxt.value != "") {
+        this.categoryEditIMG=document.querySelector("#txtCategory_IMGEdit")
+        if (this.categoryEditTxt.value != ""&&this.categoryEditIMG.value!="") {
           //edit
-          this.categoryController.editCategory(this.categoryEditTxt.value, sessionStorage.getItem('selectedCategory'))
+          this.categoryController.editCategory(this.categoryEditIMG.value,this.categoryEditTxt.value,sessionStorage.getItem('selectedCategory'))
           this.displayEditCategoryMessage("Category Edited", "success")
           setTimeout(() => {
             window.location.href = "admin.html";
@@ -229,8 +232,8 @@ export default class AdminView {
     this.addCategoryBtn.addEventListener("click", event => {
       event.preventDefault()
       try {
-        if (this.addCategoryTxt.value != "") {
-          this.categoryController.addCategory(this.addCategoryTxt.value)
+        if (this.addCategoryTxt.value != ""&&this.addCategoryIMG.value!="") {
+          this.categoryController.addCategory(this.addCategoryTxt.value,this.addCategoryIMG.value)
           this.displayCategoryMessage('Category Added', 'success')
           setTimeout(() => {
             window.location.href = "admin.html";
@@ -507,10 +510,13 @@ export default class AdminView {
       const element = document.querySelectorAll(".Category")[index];
       element.addEventListener("click", event => {
         sessionStorage.setItem('selectedCategory', event.target.id)
-        this.editCategoryTxtInner.innerHTML = `<div class="form-group d-flex justify-content-center" id="txtcategoryEditInner">
+        this.editCategoryTxtInner.innerHTML = `
       <input type="text" class="form-control col-lg-6  modalField" id="txtcategoryEdit"
         aria-describedby="emailHelp" placeholder="Category" value="${sessionStorage.getItem('selectedCategory')}">
-    </div>`
+    `
+    
+    
+    this.editCategoryPhoto.value=this.categoryModel.getAll().filter(category=>category.category==sessionStorage.getItem('selectedCategory'))[0].photo
       })
 
     }
@@ -577,8 +583,8 @@ export default class AdminView {
               
               <tr class="categoryData" >
                 <td>
-                    <button class="btnAdminTable btn Category" id="${category}">
-                        ${category}
+                    <button class="btnAdminTable btn Category" id="${category.category}">
+                       <img src="${category.photo}"  height="22" width="22"> ${category.category}
                     </button>
                 </td>
                 
