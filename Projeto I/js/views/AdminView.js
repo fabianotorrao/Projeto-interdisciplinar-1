@@ -2,6 +2,8 @@ import UserController from '../controllers/UserController.js'
 import UserModel from '../models/UserModel.js'
 import categoryModel from '../models/categoryModel.js'
 import categoryController from '../controllers/categoryController.js'
+import missionController from '../controllers/missionController.js'
+import missionModel from '../models/missionModel.js'
 
 export default class AdminView {
 
@@ -10,6 +12,8 @@ export default class AdminView {
     this.UserController = new UserController()
     this.categoryModel = new categoryModel()
     this.categoryController = new categoryController()
+    this.missionController = new missionController()
+    this.missionModel = new missionModel()
 
     this.AddBtn = document.querySelector("#btnSubmit")
     this.AdminEmail = document.querySelector("#txtEmail")
@@ -27,12 +31,37 @@ export default class AdminView {
     this.addCategoryTxt = document.querySelector("#txtcategory")
     this.addCategoryMessage = document.querySelector("#CategoryRegisterMessage")
     this.deleteCategory = document.querySelector("#removeCategory")
-
+    this.missionList = document.querySelector("#MissionsTable")
 
     this.editCategoryTxtInner = document.querySelector("#txtcategoryEditInner")
     this.CategoryEditBtn = document.querySelector("#btnEditCategory")
-    
+
     this.editCategoryMessage = document.querySelector("#CategoryEditMessage")
+
+    this.missionDeleteBtn = document.querySelector("#removeMission")
+
+
+    this.addMissionBtn = document.querySelector("#btnAddMission")
+    this.missionAddMessage = document.querySelector("#missionRegisterMessage")
+    this.missionType = document.querySelector("#MissionType")
+    this.missionGoal = document.querySelector("#txtGoal")
+    this.missionMinLevel = document.querySelector("#txtmin")
+    this.missionMaxLevel = document.querySelector("#txtmax")
+    this.missionPoints = document.querySelector("#txtpoints")
+    this.missionDescription = document.querySelector("#MissionDescription")
+    this.missionEditMissionsBtn = document.querySelector("#EditMission")
+
+
+    this.missiontypeSelectEdit = document.querySelector('#MissionTypeEdit')
+    this.missionGoalEdit = document.querySelector("#txtGoalEdit")
+    this.missionMinLvlEdit = document.querySelector("#txtminEdit")
+    this.missionMaxLvlEdit = document.querySelector("#txtmaxEdit")
+    this.missionPointsEdit = document.querySelector("#txtpointsEdit")
+    this.missionDescriptionEdit = document.querySelector("#MissionDescriptionEdit")
+    this.editMissionBtnUpdateEdit = document.querySelector("#EditSubmitButton")
+    this.editMissionMessage = document.querySelector("#missionEditMessage")
+
+
 
 
 
@@ -48,6 +77,10 @@ export default class AdminView {
     this.bindAddCategory()
     this.bindRemoveCategory()
     this.bindEditCategory()
+    this.bindRemoveMission()
+    this.bindAddMission()
+    this.bindEditMission()
+
 
 
 
@@ -55,19 +88,115 @@ export default class AdminView {
 
   }
 
+  bindBtnEdit() {
+    this.editMissionBtnUpdateEdit.addEventListener("click", event => {
+
+      event.preventDefault()
+      try {
+        this.missiontypeSelectEdit = document.querySelector('#MissionTypeEdit')
+        this.missionGoalEdit = document.querySelector("#txtGoalEdit")
+        this.missionMinLvlEdit = document.querySelector("#txtminEdit")
+        this.missionMaxLvlEdit = document.querySelector("#txtmaxEdit")
+        this.missionPointsEdit = document.querySelector("#txtpointsEdit")
+
+        if (this.missiontypeSelectEdit.value != "" && this.missionGoalEdit.value != "" && this.missionMinLvlEdit.value != "" && this.missionMaxLvlEdit.value != "" && this.missionPointsEdit.value != "" && this.missionDescriptionEdit.value != "") {
+
+          if (this.missionMaxLvlEdit.value >= this.missionMinLvlEdit.value && this.missionGoalEdit.value > 0 && this.missionMinLvlEdit.value > 0 && this.missionMaxLvlEdit.value > 0 && this.missionPointsEdit.value > 0) {
+            this.missionController.editMission(sessionStorage.getItem('selectedMission'), this.missiontypeSelectEdit.value, this.missionGoalEdit.value, this.missionMinLvlEdit.value, this.missionMaxLvlEdit.value, this.missionPointsEdit.value, this.missionDescriptionEdit.value)
+            this.displayMissionEditMessage("Mission Edited", 'success')
+            setTimeout(() => {
+              window.location.href = "admin.html";
+            },
+              1000)
+
+
+          } else {
+            throw Error("just Positive numbers")
+          }
+
+        } else {
+          throw Error("Empty fields")
+        }
+      }
+      catch (e) {
+        this.displayMissionEditMessage(e, 'danger')
+      }
+
+
+    })
+
+  }
+
+  bindEditMission() {
+    this.missionEditMissionsBtn.addEventListener("click", event => {
+      const selectedMission = this.missionModel.getAll().filter(mission => mission.id == sessionStorage.getItem('selectedMission'))[0]
+
+      this.missiontypeSelectEdit.value = selectedMission.type
+      this.missionGoalEdit.value = selectedMission.goal
+      this.missionMinLvlEdit.value = selectedMission.minLevel
+      this.missionMaxLvlEdit.value = selectedMission.maxLevel
+      this.missionPointsEdit.value = selectedMission.points
+      this.missionDescriptionEdit.value = selectedMission.description
+      this.bindBtnEdit()
+
+    })
+  }
+
+  bindAddMission() {
+    this.addMissionBtn.addEventListener("click", event => {
+      try {
+        if (this.missionType.value != "" && this.missionGoal.value != "" && this.missionMinLevel.value != "" && this.missionMaxLevel.value != "" && this.missionPoints.value != "" && this.missionDescription.value) {
+          if (this.missionMaxLevel.value > this.missionMinLevel.value && this.missionGoal.value > 0 && this.missionMinLevel.value > 0 && this.missionMaxLevel.value > 0 && this.missionPoints.value > 0) {
+            this.missionController.addMission(this.missionType.value, this.missionGoal.value, this.missionMinLevel.value, this.missionMaxLevel.value, this.missionPoints.value, this.missionDescription.value)
+            this.displayMissionMessage("Mission Created", 'success')
+            setTimeout(() => {
+              window.location.href = "admin.html";
+            },
+              1000)
+
+          }
+          else {
+            throw Error("just Positive numbers")
+          }
+        }
+        else {
+          throw Error("Empty fields")
+        }
+      }
+      catch (e) {
+        this.displayMissionMessage(e, 'danger')
+      }
+
+    })
+
+  }
+
+  bindRemoveMission() {
+    this.missionDeleteBtn.addEventListener("click", event => {
+      event.preventDefault()
+      if (confirm(`Delete ${sessionStorage.getItem('selectedMission')}`)) {
+        this.missionController.deleteMission(sessionStorage.getItem('selectedMission'))
+        setTimeout(() => {
+          window.location.href = "admin.html";
+        },
+          1000)
+      }
+    })
+  }
+
   bindEditCategory() {
     this.CategoryEditBtn.addEventListener("click", event => {
       event.preventDefault()
       try {
         this.categoryEditTxt = document.querySelector("#txtcategoryEdit")
-        if (this.categoryEditTxt.value !="") {
+        if (this.categoryEditTxt.value != "") {
           //edit
           this.categoryController.editCategory(this.categoryEditTxt.value, sessionStorage.getItem('selectedCategory'))
           this.displayEditCategoryMessage("Category Edited", "success")
           setTimeout(() => {
             window.location.href = "admin.html";
           },
-            1000) 
+            1000)
         }
         else {
           throw Error("Field is empty")
@@ -398,9 +527,14 @@ export default class AdminView {
       })
     }
 
-
-
-
+  }
+  bindMissionRow() {
+    for (let index = 0; index < document.querySelectorAll(".Mission").length; index++) {
+      const element = document.querySelectorAll(".Mission")[index]
+      element.addEventListener("click", event => {
+        sessionStorage.setItem('selectedMission', event.target.id)
+      })
+    }
   }
 
   bindLoadPage() {
@@ -455,8 +589,16 @@ export default class AdminView {
       this.bindCategoryRow()
     })
 
-
-
+    for (let i = 0; i <= [this.missionModel.missions.length - 1]; i++) {
+      const id = JSON.parse(localStorage.getItem('missions'))[i].id
+      const type = JSON.parse(localStorage.getItem('missions'))[i].type
+      const goal = JSON.parse(localStorage.getItem('missions'))[i].goal
+      const minLevel = JSON.parse(localStorage.getItem('missions'))[i].minLevel
+      const maxLevel = JSON.parse(localStorage.getItem('missions'))[i].maxLevel
+      const points = JSON.parse(localStorage.getItem('missions'))[i].points
+      this.missionList.innerHTML += `<tr><td><button class="btnAdminTable btn Mission" id="${id}">${id}</button></td><td><button class="btnAdminTable btn Mission" id="${id}">${type}</button></td><td><button class="btnAdminTable btn Mission" id="${id}">${goal}</button></td><td><button class="btnAdminTable btn Mission" id="${id}">${minLevel}</button></td><td><button class="btnAdminTable btn Mission" id="${id}">${maxLevel}</button></td><td><button class="btnAdminTable btn Mission" id="${id}">${points}</button></td></tr>`
+    }
+    this.bindMissionRow()
 
   }
 
@@ -500,6 +642,12 @@ export default class AdminView {
     this.editCategoryMessage.innerHTML =
       `<div class="alert alert-${type} d-flex justify-content-center" role="alert">${message}</div>`
 
+  }
+  displayMissionMessage(message, type) {
+    this.missionAddMessage.innerHTML = `<div class="alert alert-${type} d-flex justify-content-center" role="alert">${message}</div>`
+  }
+  displayMissionEditMessage(message, type) {
+    this.editMissionMessage.innerHTML = `<div class="alert alert-${type} d-flex justify-content-center" role="alert">${message}</div>`
   }
 
 
