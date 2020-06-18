@@ -9,7 +9,7 @@ export default class UserModel {
 
     registerUser(email, username, password, location, genre, weight, birthDate, aboutUser, height,photo, type){
         const user = {
-            id: this.users.length > 0 ? this.users[this.users.length - 1].id + 1 : 1,
+            id: this.users.length > 0 ? +this.users[this.users.length - 1].id + 1 : 1,
             email: email,
             username: username,
             password: password,
@@ -20,7 +20,8 @@ export default class UserModel {
             aboutUser: aboutUser,
             height: height,
             photo: photo,
-            type: type
+            type: type,
+            points:0
         }
         this.users.push(user)
         this._persist()
@@ -65,7 +66,9 @@ export default class UserModel {
             aboutUser: aboutUser,
             height: height,
             photo: photo,
-            type: type
+            type: type,
+            points:this.users.filter(user=>user.id==id)[0].points
+            
         }
         console.log(usernew)
         this.users= this.users.map(user=>user.id==usernew.id?usernew:user)
