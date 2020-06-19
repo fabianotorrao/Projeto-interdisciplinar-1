@@ -12,70 +12,82 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/navbarBodyFooter.css">
+    <link rel="stylesheet" href="../css/map.css">
 </head>
 
 <body onload="startTime()">
     <!--Navbar-->
-  <nav id="menu" class="navbar navbar-expand-lg navbar-light  ">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
-      aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-      <i class="fa fa-align-justify" style=" color: #D60B52;"></i>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a class="navbar-brand" href="#"><img src="../images/icon_logo.png" class="float-left img-fluid "
-          id="logotipoNav"></a>
-      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-        <li class="nav-item pr-3">
-          <a class="nav-link" href="activities.html"><button value="activities" class="navButton "><i
-                class="fa fa-users mr-2"></i><span>Activities</span></button> <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item pr-3">
-          <a class="nav-link" href="map.html"><button value="map" class="navButton"><i class="fa fa-map-marker mr-1"></i>
-              <span>Map</span></button></a>
-        </li>
-        <li class="nav-item pr-3">
-          <div>
-            <a class="nav-link">
-              <div class="row">
-                <div class="navButton" id="clock">
-                  <div id="time"></div>
+    <nav id="menu" class="navbar navbar-expand-lg navbar-light  ">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+        aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fa fa-align-justify" style=" color: #D60B52;"></i>
+      </button>
+  
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <a class="navbar-brand" href="#"><img src="../images/icon_logo.png" class="float-left img-fluid "
+            id="logotipoNav"></a>
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <li class="nav-item pr-3">
+            <a class="nav-link" href="activities.html"><button value="activities" class="navButton "><i
+                  class="fa fa-users mr-2"></i><span>Activities</span></button> <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item pr-3">
+            <a class="nav-link" href="#"><button value="map" class="navButton"><i class="fa fa-map-marker mr-1"></i>
+                <span>Map</span></button></a>
+          </li>
+          <li class="nav-item pr-3">
+            <div>
+              <a class="nav-link">
+                <div class="row">
+                  <div class="navButton" id="clock">
+                    <div id="time"></div>
+                  </div>
                 </div>
-              </div>
-            </a>
-          </div>
-        </li>
-      </ul>
-      <div class="col-lg-3">
-        <ul class="navbar-nav ml-auto  ">
-          <li class="nav-item">
-            <div class="dropdown">
-              <button data-toggle="dropdown" class="userbtn btn"><img id="userPhoto" src="" width="42" height="42" class="rounded-circle profileIMG"><a id="userControls" class="nav-link" href="#"></a></button>
-              <!--<a href="#"><span class="badge badge-danger">9</span></a>-->
-              <span class="caret"></span></button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <button class="dropdown-item" type="button"><i class="fa fa-user"></i> My Profile</button>
-                <button class="dropdown-item" type="button"><i class="fa fa-cog"></i> Settings</button>
-                <button class="dropdown-item" type="button" data-toggle="modal" data-target="#notification"><i class="fa fa-bell"></i> Notifications</button>
-                <button id="btnLogout" class="dropdown-item" type="button"> <i class="fa fa-sign-out"></i> Logout</button>
-              </div>
+              </a>
             </div>
           </li>
         </ul>
+        <div class="col-lg-3">
+          <ul class="navbar-nav ml-auto  ">
+            <li class="nav-item">
+              <div class="dropdown">
+                <button data-toggle="dropdown" class="userbtn btn"><img id="userPhoto" src="" width="42" height="42" class="rounded-circle profileIMG"><a id="userControls" class="nav-link" href="#"></a></button>
+                <!--<a href="#"><span class="badge badge-danger">9</span></a>-->
+                <span class="caret"></span></button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                  <button class="dropdown-item" type="button"><i class="fa fa-user"></i> My Profile</button>
+                  <button class="dropdown-item" type="button"><i class="fa fa-cog"></i> Settings</button>
+                  <button class="dropdown-item" type="button" data-toggle="modal" data-target="#notification"><i class="fa fa-bell"></i> Notifications</button>
+                  <button id="btnLogout" class="dropdown-item" type="button"> <i class="fa fa-sign-out"></i> Logout</button>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </nav>
-  <!--Fim da Navbar-->
-    <div class="container-fluid" style="height: 100vh; width: auto;">
-        <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48059.756934762125!2d-8.656973274436233!3d41.16213764687935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2465abc4e153c1%3A0xa648d95640b114bc!2sPorto!5e0!3m2!1spt-PT!2spt!4v1590250063199!5m2!1spt-PT!2spt"
-            width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0">
-        </iframe>    
-    </div>
+    </nav>
+    <!--Fim da Navbar-->
+    
+  <div id="map"></div>
+  <script>
+    var map;
+    function initMap() {
+    map = new google.maps.Map(document.getElementById("map"), {
+    center: { lat: -34.397, lng: 150.644 },
+    zoom: 8
+    });
+  }
+  </script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script type="module" src="../js/app.js"></script>
     <script src="../js/HourFunction.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWduFVfnkK7lTo7lFKTtnIQFN3d_OPt-Y&callback=initMap&libraries=&v=weekly"
+      defer
+    ></script>
+    </script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous">
@@ -89,5 +101,4 @@
         crossorigin="anonymous">
     </script>
 </body>
-
 </html>
