@@ -65,7 +65,7 @@ hr{
 #btnDuration{
     border: 0;
 }
-#btnSendRequest{
+.btnSendRequest{
     color: white;
     background-color: #D60B52;
     border: 0;
@@ -84,4 +84,61 @@ hr{
 }
 #activityLocation{
     color: #D60B52;
+}
+#btnFilter{
+    width: 100%;
+    margin-top: 10px;
+    background-color: #D60B52;
+    color: white;
+}
+#warningEmptyFilter{
+    width: 100%;
+    font-size: 15px;
+}
+#scroll-card{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+
+}
+#cardRecomended{
+    margin: 9px;
+    float: left;
+    margin-bottom: 2rem;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+::-webkit-scrollbar {
+    width: 9px;
+  }
+
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px white; 
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #D60B52; 
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #D60B52; 
+  }
+.dialog-modal{
+    overflow-y: initial !important
+}
+.body-modal{
+    height: 280px;
+    overflow-y: auto;
+}
+#notificationsMessageError{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+#sendRequestTextArea{
+    border: none;
+    background-color: #edf2f9;
 }
