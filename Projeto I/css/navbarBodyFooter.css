@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;1,400&display=swap');
 #logotipoNav{
     width: 118.5px;
     height: 49px;
@@ -101,4 +102,18 @@ body{
 
 #btn-list{
     text-align: left;
+}
+
+
+#userControls{
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    
+}
+.dropdown-menu{
+    background-color: #D60B52;
+    color: white;
+}
+.dropdown-item{
+    color: white;
 }
