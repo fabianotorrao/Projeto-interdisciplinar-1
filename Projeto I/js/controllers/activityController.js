@@ -1,4 +1,4 @@
-import activityModel from '../models/activityModel.js'
+import activityModel from '../models/activitiyModel.js'
 
 export default class activityController {
     constructor(){
@@ -27,5 +27,6 @@ export default class activityController {
     editactivity(allActivities){
         this.activityModelVar.activities = allActivities
         this.activityModelVar._presist()
+        
     }
 }
