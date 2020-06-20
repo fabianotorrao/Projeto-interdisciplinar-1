@@ -1,6 +1,8 @@
 import activityController from '../controllers/activityController.js'
 import activityModel from '../models/activityModel.js'
 import notificationController from '../controllers/notificationController.js'
+import missionController from '../controllers/missionController.js'
+
 
 
 export default class activityView {
@@ -9,6 +11,7 @@ export default class activityView {
         this.activitiesController = new activityController()
         this.activitiesModel = new activityModel()
         this.notificationsController = new notificationController()
+        this.missionController = new missionController()
 
         this.InsertCard = document.querySelector("#scroll-card")
         this.InsertNormalCard = document.querySelector("#insertNormalCard")
@@ -36,6 +39,9 @@ export default class activityView {
         this.btnRequest = document.querySelectorAll("#btnSendRequest")
         
         this.bindParticipants()
+        
+        this.missionsPoints()
+        this.ChangeActivityStatus()
       
        
         
@@ -64,6 +70,42 @@ export default class activityView {
          
         
     }
+    ChangeActivityStatus(){
+        let todat=new Date()
+        
+    }
+
+    missionsPoints() {
+        let missions = this.missionController.missionModel.getAll()
+        let missionsComplete = this.missionController.missionModel.getAllCompletedMissions()
+        console.log(missions)
+        console.log(missionsComplete);
+
+        let missionsToCheck=[]
+        if (missionsComplete.length > 0) {
+            mission.forEach(element => {
+                if (!missionsComplete.some(mission => mission.idMission == element.id && mission.idUser ==sessionStorage.getItem('loggedUser'))) {
+                    missionsToCheck.push(element.id)
+                    
+                }
+
+            });
+        }
+        else{
+            missions.forEach(element => {
+                console.log(element)
+                missionsToCheck.push(element.id)
+                
+            });
+            //verificar se a missao está completa
+                    console.log(missionsToCheck)
+
+        }
+        ;
+
+
+    }
+    
     sendRequestFunction(){
         let dataCard = []
         let idCard = ""
