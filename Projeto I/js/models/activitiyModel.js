@@ -34,4 +34,26 @@ export default class activityModel {
         localStorage.setItem('activities', JSON.stringify(this.activities))
 
     }
+    ToPassed(activity){
+        
+        
+        const Editactivity = {
+            id: activity.id,
+            name: activity.name,
+            categorie: activity.categorie,
+            duration: activity.duration,
+            local: activity.local,
+            date: activity.date,
+            image: activity.image,
+            type: activity.type,
+            startTime: activity.startTime,
+            userEmail: activity.userEmail,
+            userPhoto: activity.userPhoto,
+            participants: activity.participants,
+            passed: true
+        }
+        this.activities=this.activities.map(activity=>activity.id==Editactivity.id?Editactivity:activity)
+        this._presist()
+        
+    }
 }
