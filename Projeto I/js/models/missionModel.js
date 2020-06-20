@@ -1,13 +1,28 @@
 export default class missionModel{
     constructor(){
         this.missions=localStorage.missions?JSON.parse(localStorage.missions):[]
+        this.completedMissions=localStorage.completedMissions?JSON.parse(localStorage.completedMissions):[]
     }
 
     _persist(){
         localStorage.setItem('missions', JSON.stringify(this.missions));
     }
+    _persistCompletedMissions(){
+        localStorage.setItem('completedMissions',JSON.stringify(this.completedMissions))
+    }
     getAll() {
         return this.missions
+    }
+    getAllCompletedMissions(){
+        return this.completedMissions
+    }
+    addCompletedMission(idMission,idUser){
+        const Cmission={
+            idUser:idUser,
+            idMission:idMission
+        }
+        this.completedMissions.push(Cmission)
+        this._persistCompletedMissions()
     }
     addMission(type,goal,minLevel,maxLevel,points,descript){
         const mission={
