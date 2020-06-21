@@ -67,8 +67,9 @@
                     <div class="d-flex justify-content-center ">
       
                       <div class="col-xs-5   ">
-                        <div class="">
-                        <img src="https://via.placeholder.com/250">
+                        <div class="" id="levelChart">
+                          <canvas id="chart"></canvas>
+                          <div id="level" class="mt-3"></div>
                         </div>
                         <div>
                         <label>The highest level you have your activities will be more recommended</label>
@@ -77,7 +78,7 @@
                      
                     </div>
                   </div>
-                  <div class="d-flex justify-content-center pt-3">
+                  <div class="d-flex justify-content-center pt-3" id="YourPoints">
                     <h4>Your points:</h4>
                   </div>
                   
@@ -92,15 +93,14 @@
                   <h3 class="pr-2 text-muted d-flex justify-content-start mb-5">Missions</h3>
                   
                   <div id="missions" class=" row d-flex justify-content-center mt-5">
-                        <div class="mission mb-5 col-lg-10 d-flex justify-content-center">this is a mission</div>
-                        <div class="mission mb-5 col-lg-10 d-flex justify-content-center">this is a mission</div>
-                        <div class="mission mb-5 col-lg-10 d-flex justify-content-center">this is a mission</div>
+                        
+
                         
                     </div>
-                    <div class="d-flex justify-content-center  ">
+                    <div class="d-flex justify-content-center  " id="ranking">
                             <div class="row">
                             <label class="col-lg-12  d-flex justify-content-center mb-3">Collect extra point by doing  the missions at time</label>
-                            <h4 class="col-lg-12 d-flex justify-content-center mt-5">Ranking:</h4>
+                            
                         </div>
                         
                     </div>
@@ -163,8 +163,10 @@
       
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script type="module" src="../js/app.js"></script>
   </body>
 </html>
