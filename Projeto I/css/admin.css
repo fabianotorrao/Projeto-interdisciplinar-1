@@ -81,7 +81,7 @@ body{
     color: #10364F;
     position: relative;
     margin-bottom: 1px;
-    color: #D60B52;
+    color: white;
     white-space: nowrap;
 }
 
@@ -110,7 +110,7 @@ body{
 }
 .wrapper .sidebar ul li:hover,
 .wrapper .sidebar ul li:active{
-    background: #fff;
+    background: #D60B52;
     color: #fff;
 }
 

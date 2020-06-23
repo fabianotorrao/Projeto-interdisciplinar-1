@@ -1,0 +1,9 @@
+#body{
+    background-color: #edf2f9;
+}
+.displayCardDetails{
+    background-color: white;
+    padding: 70px 0;
+    text-align: center;
+    border-radius: 9px;
+}

@@ -142,3 +142,20 @@ hr{
     border: none;
     background-color: #edf2f9;
 }
+#bodyDetails{
+    background-color: #edf2f9;
+
+}
+.btnSeeDetails{
+    background-color: #D60B52;
+    color: white;
+    border-radius: 20px;
+
+}
+.btnSeeDetails:hover{
+    color: white;
+}
+#mapa {
+   height: 250px;
+  }
+  

@@ -12,8 +12,12 @@ body{
    padding-top: 9px;
    padding-bottom: 9px;
 }
-.btn{
-    background-color: #D60B52;
-    color: white;
-    border-radius: 20px;
-}
+#footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;        
+  }
+  #data{
+      position: relative;
+      min-height: 73.5vh;
+  }
