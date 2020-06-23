@@ -41,6 +41,9 @@ export default class UserModel {
         window.sessionStorage.removeItem("loggedUser")
         window.sessionStorage.removeItem("userPhotoUser")
         window.sessionStorage.removeItem("userName")
+        window.sessionStorage.removeItem("notificationUserEmail")
+        window.sessionStorage.removeItem("notificationCardId")
+        window.sessionStorage.removeItem("notificationMessage")
         console.log("fez logout");
 
     }
@@ -71,6 +74,28 @@ export default class UserModel {
             
         }
         console.log(usernew)
+        this.users= this.users.map(user=>user.id==usernew.id?usernew:user)
+        this._persist()
+    }
+    addPoints(points,email){
+        let user=this.getAll().filter(user=>user.email==email)[0]
+        let newPoints=user.points+points
+        const usernew={
+            id:user.id,
+            email:user.email,
+            username:user.username,
+            password:user.password,
+            location:user.location,
+            genre: user.genre,
+            weight: user.weight,
+            birthDate: user.birthDate,
+            aboutUser: user.aboutUser,
+            height: user.height,
+            photo: user.photo,
+            type: user.type,
+            points:newPoints
+
+        }
         this.users= this.users.map(user=>user.id==usernew.id?usernew:user)
         this._persist()
     }
