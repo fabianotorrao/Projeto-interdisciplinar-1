@@ -1,6 +1,8 @@
 import UserView from './views/UserView.js'
 import AdminView from './views/AdminView.js'
 import activityView from './views/activityView.js'
+import notificationView from './views/notificationView.js';
+import MyDataView from './views/MyDataView.js'
 import profileView from './views/profileView.js'
 import achievementsView from './views/AchievementsView.js'
 
@@ -13,33 +15,43 @@ class App {
             ],
             'index': [
                 UserView
-
+                
             ],
             'activities': [
                 UserView,
-                activityView
-
+                activityView,
+                notificationView
 
 
             ],
             'admin': [
                 AdminView
             ],
-            'profile': [
-                profileView
+            'notificationsDetails': [
+                notificationView
             ],
-            'achievements':[
-                achievementsView
+            'profile': [
+                profileView,
+                UserView
+            ],
+            'achievements': [
+                achievementsView,
+                UserView
+
+            ],
+            'myData': [
+                UserView,
+                MyDataView
             ]
         };
 
         this._importDataFixtures();
         this._instantiateViews();
-
+        
     }
 
     _instantiateViews() {
-
+        
         const path = window.location.pathname
         const file = path.substr(path.lastIndexOf('/') + 1);
         const route = file.split('.')[0];
@@ -48,7 +60,7 @@ class App {
 
         for (const view of views) {
             new view();
-
+            
         }
     }
 

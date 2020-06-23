@@ -23,10 +23,10 @@ function startTime() {
 
         document.querySelector('#time').innerHTML = n + " : " + h + " : " + m + " : " + s + `<i class="fa fa-sun-o"></i>`;
         var t = setTimeout(startTime, 500);
-    }else if(h >= 12 && h <= 19){
+    }else if(h > 12 && h <= 19){
         document.querySelector('#time').innerHTML = n + " : " + h + " : " + m + " : " + s + `<i class="fa fa-sun-o"></i>`;
         var t = setTimeout(startTime, 500);
-    }else if(h >19 && h < 5){
+    }else if(h >19 && h < 23){
         document.querySelector('#time').innerHTML = n + " : " + h + " : " + m + " : " + s + `<i class="fa fa-moon-o"></i>`;
         var t = setTimeout(startTime, 500);
     }
