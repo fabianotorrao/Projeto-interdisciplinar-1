@@ -23,5 +23,10 @@ export default class UserController {
         }
     }
 
+    getCategories(){
+        const categorie = this.categoryModel.getAll()
+        return categorie
+    }
+
 
 }
