@@ -4,11 +4,13 @@ import UserModel from '../models/UserModel.js'
 export default class UserView {
     constructor() {
         this.userController = new UserController()
+        this.userModel=new UserModel()
 
         this.loginForm = document.querySelector('#btnSubmit');
         this.loginEmail = document.querySelector('#txtEmail');
         this.loginPassword = document.querySelector('#txtPasswordLogin');
         this.loginMessage = document.querySelector('#mdlLoginMessage');
+        
         
         //Take logout button
         this.logOutBtn = document.querySelector('#btnLogout')
@@ -74,19 +76,31 @@ export default class UserView {
 
     bindAddLoginFrom() {
         this.loginForm.addEventListener('click', event => {
-
+           
             event.preventDefault()
             try {
-                this.userController.loginUser(this.loginEmail.value, this.loginPassword.value)
-                this.displayLoginMessage("User logged with success", 'success')
-                let pageSelectionpath;
-                if (sessionStorage.getItem("userType")==="user") {
-                   pageSelectionpath="./html/activities.html" 
-                }else{pageSelectionpath="./html/admin.html"}
-                setTimeout(() => {
-                    window.location.href = pageSelectionpath;
-                },
-                    1000)
+                   
+                 
+                        this.userController.loginUser(this.loginEmail.value, this.loginPassword.value)
+                        this.displayLoginMessage("User logged with success", 'success')
+                        let user=this.userModel.getAll().filter(user=>user.email==sessionStorage.getItem('loggedUser'))[0]
+                        if (user.type=="user") {
+                            setTimeout(() => {
+                                window.location.href = "../html/activities.html";
+                            },
+                                1000)
+                        }else{
+                            setTimeout(() => {
+                                window.location.href = "../html/admin.html";
+                            },
+                                1000)
+
+                        }
+                        
+        
+               
+                            
+                            
 
 
             } catch (e) {
@@ -116,7 +130,6 @@ export default class UserView {
     }
 
     bindUserNameTake() {
-        console.log(sessionStorage.getItem("loggedUser"))
         this.UserName.innerHTML = sessionStorage.getItem("userName")
         this.getUserPhoto.setAttribute("src",sessionStorage.getItem("userPhotoUser"))
         
@@ -133,11 +146,16 @@ export default class UserView {
             }else{
                 if(this.registerUserName.value === "" || this.registerEmail.value === "" || this.registerPassword.value === "" || this.registerConfirmPassword.value === "" || this.registerLocation.value === "" || this.registerGenre.value === "" || this.registerWeight.value === "" || this.registerBornDate.value === "" || this.registerAboutYou.value === "" || this.registerheight.value === ""){
                     throw Error('Please field all the fields');
+                    
                 }else{
+                    
                     this.userController.createUser(this.registerEmail.value, this.registerUserName.value, this.registerPassword.value, this.registerLocation.value, this.registerGenre.value, this.registerWeight.value, this.registerBornDate.value, this.registerAboutYou.value, this.registerheight.value, this.registerPhoto.value, "user");
                     this.registerLoadPhotoRegister.setAttribute("src",this.registerPhoto.value)
                     this.displayRegisterMessage('User registered with success!', 'success');
-                   
+                    setTimeout(() => {
+                        window.location.reload();
+                    },
+                        1000)
                 }
             }
 

@@ -23,6 +23,7 @@ export default class AchievementsView {
     bindLoad() {
         window.addEventListener('load', event => {
             this.RenderChart(sessionStorage.getItem('loggedUser'))
+            console.log(this.usermodel.getAll().filter(user => user.email == sessionStorage.getItem('loggedUser'))[0])
             const user = this.usermodel.getAll().filter(user => user.email == sessionStorage.getItem('loggedUser'))[0]
 
 
@@ -30,9 +31,39 @@ export default class AchievementsView {
             this.yourPoints.innerHTML = `<h4>Your Points: ${user.points}</h4>`
             const userlevel = parseInt(user.points / 100) + 1
             this.missionModel.getAll().forEach(element => {
+                
                 if (userlevel >= element.minLevel && userlevel <= element.maxLevel) {
-                    this.missionsList.innerHTML += `<div class="mission mb-5 col-lg-10 d-flex justify-content-center">${element.description}</div>`
+                    let users=[]
+                    let missionsId=[]
+                   this.missionModel.getAllCompletedMissions().forEach(completed => {
+                       users.push(completed.idUser)
+                       missionsId.push(completed.idMission)
+                   });
+                   let flag=false;
+                   for (let index = 0; index < users.length; index++) {
+                       const userstocheck = users[index];
+                       const missionstocheck = missionsId[index];
+                       const userID=this.usermodel.getAll().filter(user=>user.email==sessionStorage.getItem('loggedUser'))[0].id
+                       
+                       if (userstocheck== userID&& missionstocheck==element.id) {
+                        flag=true
+                        break;
+                       }
+                     
+                       
+                   }
+                   if (flag) {
+                    this.missionsList.innerHTML += `<div class="mission mb-5 col-lg-10 d-flex justify-content-center bg-success ">${element.description}</div>`
+                   }
+                   else{
+                    this.missionsList.innerHTML += `<div class="mission mb-5 col-lg-10 d-flex justify-content-center ">${element.description}</div>`
+                   }
+                   
+
+                    
                 }
+                
+            
 
             });
             let users = this.usermodel.getAll()
@@ -57,7 +88,7 @@ export default class AchievementsView {
     RenderChart(id) {
         const user = this.usermodel.getAll().filter(user => user.email == id)[0]
         const userLevel = parseInt(user.points / 100) + 1
-        console.log(userLevel)
+        console.log(user)
         let data = {
 
             datasets: [{

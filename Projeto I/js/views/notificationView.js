@@ -1,15 +1,21 @@
 import notificationController from '../controllers/notificationController.js'
 import notificationModel from "../models/notificationModel.js"
+import activityController from '../controllers/activityController.js'
+import UserController from '../controllers/UserController.js'
 
 export default class notificationView {
     constructor(){
         this.notificationImportController = new notificationController()
         this.notificationImportModel = new notificationModel()
+        this.activityControllerImport = new activityController()
+        this.userControllerImport = new UserController()
         this.sendNotificationBtn = document.querySelector("#btnSendRequestText")
         this.sendRequestMessage = document.querySelector("#sendRequestTextArea")
         this.notificationsSection = document.querySelector("#notificationSection")
         this.sendRequestMessageMessage = document.querySelector("#mdlRegisterMessage")
         this.acceptNotificationBtn = document.querySelectorAll("#accept")
+        this.RenderCardDetails = document.querySelector("#cardInsert")
+
 
         this.notificationAnswer = []
         this.createNotification()
@@ -122,7 +128,6 @@ export default class notificationView {
         let userToAnswer = ""
         for(const btnControl of document.getElementsByClassName("btn-notificationDetails")){
             btnControl.addEventListener('click', event =>{
-                console.log("clicou")
                 data = (event.target.id).split(" ")
                 notificationId = data[0]
                 cardId = data[1]
@@ -130,6 +135,7 @@ export default class notificationView {
                 sessionStorage.setItem("notificationAnswerId", notificationId)
                 sessionStorage.setItem("cardAnswerNotification", cardId)
                 sessionStorage.setItem("userToAnswer", userToAnswer)
+                this.getActivityDetails(sessionStorage.getItem("cardAnswerNotification"))
             })     	
         }
     }
@@ -161,6 +167,58 @@ export default class notificationView {
         localStorage.removeItem("notifications")
         localStorage.setItem("notifications", JSON.stringify(arrayUpdate))
     }
+
+
+    getActivityDetails(cardID){
+    let activities = this.activityControllerImport.getActivities()
+    let activitySelected = []
+      for(let i = 0 ; i <= [activities.length - 1]; i++){
+          if(activities[i].id == cardID){
+              activitySelected.push(activities[i])
+          }
+      }
+      
+      this.renderDetails(activitySelected)
+    }
+
+    renderDetails(activity){
+        let cardResult = ""
+        let users = ""
+        
+        for(const activi of activity){
+            console.log(activi.participants)
+            cardResult += this._generateCardInfo(activi)
+
+        }
+        console.log(users)
+        this.RenderCardDetails.innerHTML = cardResult
+    }
+
+    _generateCardInfo(activi){
+
+        let html = `
+        <div class="card" style="width: 18rem;">
+        <img class="rounded mt-3 mx-auto d-block" align="center" src="../images/saudavel.png" alt="Running">
+        <div class="card-body text-center">
+          <h5 class="card-title">${activi.name}</h5>
+          <p class="card-text mb-4">Category: ${activi.categorie}<br>
+          Local: ${activi.local}<br>
+          Time:${activi.startTime}/24Hours</a><br>
+          Date: ${activi.date} <br>
+          Duration: ${activi.duration}
+        </p>
+        <span style="font-size: 12px;" class="badge badge-pill badge-info">Nº Participants: ${activi.participants.length}</span>
+        </div>
+      </div>
+      `
+  
+      return html
+
+        
+  
+    }
+
+
 
 
     renderNotifications(notificationsListParse){
@@ -204,7 +262,7 @@ export default class notificationView {
              <p style="font-style: italic;" class="text-secondary pl-5">"${notification.userMessageSend}" • ${notification.hour} 
              <a id="${notification.id} ${notification.cardId} ${notification.userEmailSend}" class="btn-notification ml-1 text-success" href="#"> Accept</a> • 
              <a id="${notification.id} ${notification.cardId} ${notification.userEmailSend}" class="btn-notificationDecline text-danger" href="#">Decline</a> • 
-             <a id="${notification.id} ${notification.cardId} ${notification.userEmailSend}" class="btn-notificationDetails text-info"  href="#">Activity Details</a>
+             <a id="${notification.id} ${notification.cardId} ${notification.userEmailSend}" class="btn-notificationDetails text-info" data-toggle="modal" data-target="#activityDetails" href="#">Activity Details</a>
              </p>
              </h6>
              <br>

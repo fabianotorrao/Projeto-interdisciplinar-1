@@ -1,9 +1,11 @@
 import activityController from '../controllers/activityController.js'
-import activityModel from '../models/activitiyModel.js'
+import activityModel from '../models/activityModel.js'
 import notificationController from '../controllers/notificationController.js'
+import UserController from '../controllers/UserController.js'
+import missionModel from '../models/missionModel.js'
+import categoriesModel from '../models/categoryModel.js'
 import missionController from '../controllers/missionController.js'
-
-
+import categoryController from '../controllers/categoryController.js'
 
 export default class activityView {
     constructor() {
@@ -11,7 +13,12 @@ export default class activityView {
         this.activitiesController = new activityController()
         this.activitiesModel = new activityModel()
         this.notificationsController = new notificationController()
+        this.categoriesModel = new categoriesModel()
+        this.missionModel = new missionModel()
         this.missionController = new missionController()
+        this.userController = new UserController()
+        this.categorisControllerVar = new categoryController()
+
 
         this.InsertCard = document.querySelector("#scroll-card")
         this.InsertNormalCard = document.querySelector("#insertNormalCard")
@@ -31,12 +38,15 @@ export default class activityView {
         this.RegisterDate = document.querySelector("#dateModal")
         this.RegisterStartTime = document.querySelector("#txtStartTime_Activity")
         this.RegisterActivityButton = document.querySelector("#btnRegisterActivity")
-        this.registerActivityMessage = document.querySelector("#mdlRegisterMessage")
+        this.registerActivityMessage = document.querySelector("#alertMessage")
         this.RegisterStartTime = document.querySelector("#txtStartTime_Activity")
         this.FilterEmpty = document.querySelector("#warningEmptyFilter")
         this.DropTypeFilter = document.querySelector(".dropTypeFilter")
         this.sendRequest = document.querySelector("#btnSendRequestText")
         this.btnRequest = document.querySelectorAll("#btnSendRequest")
+        this.Activitydetails = document.querySelector("#myDetailsSection")
+        this.listUsers = document.querySelector("#listUsers")
+        this.filterCategories = document.querySelector("#btnCategories")
 
         this.bindParticipants()
 
@@ -52,7 +62,7 @@ export default class activityView {
         this.filterSection()
         this.alert = ""
         try {
-            if (this.bindLocalStorage() === null) {
+            if (this.bindLocalStorage().length === 0) {
                 throw Error("There are no activities")
             }
             this.renderCards(this.bindLocalStorage())
@@ -65,47 +75,98 @@ export default class activityView {
 
         }
 
+        this.ListCategories()
 
 
+
+    }
+    ListCategories() {
+        window.addEventListener('load', event => {
+            let categories = this.categoriesModel.getAll()
+            categories.forEach(element => {
+                this.filterCategories.innerHTML += `<option value="${element.category}">${element.category}</option>`
+                this.RegisterActiviyCategorie.innerHTML += `<option value="${element.category}">${element.category}</option>`
+
+            });
+        })
 
 
     }
     ChangeActivityStatus() {
         let today = new Date()
-        let month = today.getDay()
+        let month = today.getMonth() + 1
         let day = today.getDate()
         let hour = today.getHours()
         let year = today.getFullYear()
         console.log(year)
+        console.log(month)
         this.activitiesController.activityModelVar.getAll().forEach(activity => {
-            console.log(activity)
+            console.log(month)
             let Sdate = activity.date.split('-')
-            console.log(Sdate[0] <= year)
+            console.log(parseInt(Sdate[1]))
 
-            if (activity.passed==false) {
+            if (activity.passed == false) {
 
 
                 if (parseInt(Sdate[0]) < year) {
+
+                    try {
+                        activity.participants.forEach(email => {
+                            this.userController.addPoints(10, email)
+                        });
+                    }
+                    catch (e) { }
+                    let host = this.userController.userModel.getAll().filter(user => user.username == activity.name)[0].email
+                    this.userController.addPoints(20, host)
                     this.activitiesModel.ToPassed(activity)
                     setTimeout(() => {
                         window.location.href = "../html/activities.html";
                     },
                         1000)
                 } else {
-                    if (parseInt(Sdate[1] < month)) {
+                    if (parseInt(Sdate[1]) < month) {
+
+                        try {
+                            activity.participants.forEach(email => {
+                                this.userController.addPoints(10, email)
+                            });
+                        }
+                        catch (e) { }
+                        let host = this.userController.userModel.getAll().filter(user => user.username == activity.name)[0].email
+                        this.userController.addPoints(20, host)
                         this.activitiesModel.ToPassed(activity)
                         setTimeout(() => {
                             window.location.href = "../html/activities.html";
                         },
                             1000)
                     } else {
-                        if (parseInt(Sdate[2] < day)) {
+
+                        if (parseInt(Sdate[1]) == month && parseInt(Sdate[2]) < day) {
+
+                            try {
+                                activity.participants.forEach(email => {
+                                    this.userController.addPoints(10, email)
+                                });
+                            }
+                            catch (e) { }
+                            let host = this.userController.userModel.getAll().filter(user => user.username == activity.name)[0].email
+                            alert(host)
+                            this.userController.addPoints(20, host)
                             this.activitiesModel.ToPassed(activity)
                             setTimeout(() => {
                                 window.location.href = "../html/activities.html";
                             },
                                 1000)
-                        } else if (Sdate[2] == day && activity.startTime <= hour) {
+                        } else if (parseInt(Sdate[1]) < month && parseInt(Sdate[2]) == day && activity.startTime <= hour) {
+                            try {
+                                activity.participants.forEach(email => {
+                                    this.userController.addPoints(10, email)
+                                });
+                            }
+                            catch (e) { }
+                            let host = this.userController.userModel.getAll().filter(user => user.username == activity.name)[0].email
+                            console.log(host)
+                            this.userController.addPoints(20, host)
                             this.activitiesModel.ToPassed(activity)
                             setTimeout(() => {
                                 window.location.href = "../html/activities.html";
@@ -120,7 +181,6 @@ export default class activityView {
 
 
     }
-
     missionsPoints() {
         let missions = this.missionController.missionModel.getAll()
         let missionsComplete = this.missionController.missionModel.getAllCompletedMissions()
@@ -129,7 +189,7 @@ export default class activityView {
 
         let missionsToCheck = []
         if (missionsComplete.length > 0) {
-            mission.forEach(element => {
+            missions.forEach(element => {
                 if (!missionsComplete.some(mission => mission.idMission == element.id && mission.idUser == sessionStorage.getItem('loggedUser'))) {
                     missionsToCheck.push(element.id)
 
@@ -143,9 +203,54 @@ export default class activityView {
                 missionsToCheck.push(element.id)
 
             });
-            //verificar se a missao está completa
+
             console.log(missionsToCheck)
-            missionsToCheck.forEach(element => {
+            let nActivity = 0
+            let nTime = 0;
+            let nPersons = 0
+            missionsToCheck.forEach(mission => {
+                let activities = this.activitiesController.getActivities()
+                if (mission.type == 'activities') {
+                    activities.forEach(activity => {
+                        if (activity.participants.includes(sessionStorage.getItem('loggedUser'))) {
+                            nActivity++
+                        }
+                    });
+                    if (nActivity >= mission.goal) {
+                        this.userController.addPoints(mission.points, sessionStorage.getItem('loggedUser'))
+                        //passar a missao a completa
+                        this.missionModel.addCompletedMission(mission.id, sessionStorage.getItem('loggedUser'))
+                    }
+
+                }
+                if (mission.type == 'time') {
+                    activities.forEach(activity => {
+                        if (activity.participants.includes(sessionStorage.getItem('loggedUser'))) {
+                            nTime += activity.duration
+
+                        }
+
+                    });
+                    if (nTime >= mission.goal) {
+                        this.userController.addPoints(mission.points, sessionStorage.getItem('loggedUser'))
+                        //passar a missao a completa
+                        this.missionModel.addCompletedMission(mission.id, sessionStorage.getItem('loggedUser'))
+                    }
+
+                }
+                if (mission.type == 'nPersons') {
+                    activities.forEach(activity => {
+                        if (activity.name == sessionStorage.getItem('userName')) {
+                            nPersons += activities.participants.length
+                        }
+                    })
+                    if (nPersons >= mission.goal) {
+                        this.userController.addPoints(mission.points, sessionStorage.getItem('loggedUser'))
+                        //passar a missao a completa
+                        this.missionModel.addCompletedMission(mission.id, sessionStorage.getItem('loggedUser'))
+                    }
+
+                }
 
             });
 
@@ -154,7 +259,6 @@ export default class activityView {
 
 
     }
-
     sendRequestFunction() {
         let dataCard = []
         let idCard = ""
@@ -171,6 +275,7 @@ export default class activityView {
                 sessionStorage.setItem("notificationCardId", idCard)
                 sessionStorage.setItem("notificationUserEmail", cardUserEmail)
                 sessionStorage.setItem("notificationUserPhotoReceive", userPhoto)
+
             })
 
         }
@@ -179,10 +284,93 @@ export default class activityView {
 
     }
 
+    myActivityDetails() {
+        let dataCard = []
+        let idCard = ""
+        let cardUserEmail = ""
+        let userPhoto = ""
+        for (const btnSend of document.getElementsByClassName("btnSeeDetails")) {
+            btnSend.addEventListener('click', event => {
+                dataCard = (event.target.id).split(" ")
+                console.log(dataCard)
+                idCard = dataCard[0]
+                cardUserEmail = dataCard[1]
+                userPhoto = dataCard[2]
+                console.log(userPhoto)
+                sessionStorage.setItem("notificationCardId", idCard)
+                sessionStorage.setItem("notificationUserEmail", cardUserEmail)
+                sessionStorage.setItem("notificationUserPhotoReceive", userPhoto)
+                this.renderMydetails(sessionStorage.getItem("notificationCardId"))
+            })
+
+        }
+    }
+
+    renderMydetails(cardId) {
+        let selectedActivities = this.activitiesController.getActivities()
+        let user = []
+        let userPhotoDetail = []
+        let userEmail = []
+
+        for (let i = 0; i <= [selectedActivities.length - 1]; i++) {
+
+            if (cardId == selectedActivities[i].id) {
+                for (let j = 0; j <= [this.userController.getUsers().length - 1]; j++) {
+                    for (const users of selectedActivities[i].participants) {
+
+                        if (users === this.userController.getUsers()[j].email) {
+                            user.push(this.userController.getUsers()[j].username)
+                            userPhotoDetail.push(this.userController.getUsers()[j].photo)
+                            userEmail.push(this.userController.getUsers()[j].email)
+
+                        }
+                    }
+                }
+                if (user == "") {
+                    this.Activitydetails.innerHTML = `
+                    <div class="alert alert-danger mt-1" role="alert">
+                       <p class="text-center">There are no participants</p>
+                  </div>
+                  `
+                } else {
+                    this.Activitydetails.innerHTML = `
+                    <div class="d-flex justify-content-center">
+                    <div class="col-lg-10">
+                        <div class="d-flex justify-content-center pt-2">
+                            <button style="background-color: #D60B52; border-radius: 20px; border: none;" type="button" class="btn btn-primary ">
+                                Nº Participants: <span class="badge badge-light">${user.length}</span>
+                                <span class="sr-only">unread messages</span>
+                            </button>
+                        </div>
+                        `
+                    for (let k = 0; k <= [user.length - 1]; k++) {
+                        this.Activitydetails.innerHTML += `
+                        <table class="table table-borderless">
+                        <tbody>
+                          <tr>
+                            <td style="font-weight: bold; background-color: none;"><img src="${userPhotoDetail[k]}" width="42" height="42" class="rounded-circle profileIMG mr-2"> ${user[k]} - ${userEmail[k]}</td>
+                          </tr>
+                        </tbody>
+                      </table>`
+                    }
+                }
+
+            }
+
+        }
+
+    }
+
     bindRegisterActivity() {
         let idsCardNotification = this.notificationsController.getNotification()
         let participants = this.activitiesController.getActivities()
+        let users = []
+        let category = this.categorisControllerVar.getCategories()
+        let poinstSum = 0
+        let loggedUser = ""
 
+        users = this.userController.userModel.getAll().filter(user => user.type == "user").sort(function (a, b) { return parseInt(b.points) - parseInt(a.points) })
+        let image = ""
         let date = new Date()
         let year = date.getFullYear()
         let month = date.getUTCMonth() + 1
@@ -194,11 +382,13 @@ export default class activityView {
 
         let fullDate = year + verifiedMonth + day
 
-
-
         this.RegisterActivityButton.addEventListener('click', event => {
             event.preventDefault()
-            console.log('insert')
+            for (const categorie of category) {
+                if (this.RegisterActiviyCategorie.options[this.RegisterActiviyCategorie.selectedIndex].text == categorie.category) {
+                    image = categorie.photo
+                }
+            }
 
             try {
 
@@ -211,12 +401,37 @@ export default class activityView {
                     if (dateToCompare < fullDate) {
                         throw Error("Sorry only future dates allowed")
                     } else {
-                        this.activitiesController.addActivity(sessionStorage.getItem("userName"), this.RegisterActiviyCategorie.options[this.RegisterActiviyCategorie.selectedIndex].text, this.RegisterActivityDuration.options[this.RegisterActivityDuration.selectedIndex].text, this.RegisterLocation.value, this.RegisterDate.value, "image", "Recomended", this.RegisterStartTime.value, sessionStorage.getItem("loggedUser"), sessionStorage.getItem("userPhotoUser"), "")
-                        this.displayRegisterMessage('Activity registered with success!', 'success');
-                        setTimeout(() => {
-                            window.location.href = "../html/activities.html";
-                        },
-                            1000)
+
+
+                        let recomendedCount = this.activitiesModel.getAll().filter(activity => activity.type == "Recomended"&&activity.passed==false).length
+                        console.log(recomendedCount)
+                        if (recomendedCount < 3&& (users[0].email==sessionStorage.getItem('loggedUser')||users[1].email==sessionStorage.getItem('loggedUser')&&users[1].email==sessionStorage.getItem('loggedUser') )) {
+
+
+                            this.activitiesController.addActivity(sessionStorage.getItem("userName"), this.RegisterActiviyCategorie.options[this.RegisterActiviyCategorie.selectedIndex].text, this.RegisterActivityDuration.options[this.RegisterActivityDuration.selectedIndex].text, this.RegisterLocation.value, this.RegisterDate.value, image, "Recomended", this.RegisterStartTime.value, sessionStorage.getItem("loggedUser"), sessionStorage.getItem("userPhotoUser"), "")
+                            console.log("inseriu")
+                            this.displayRegisterMessage('Activity registered with success!', 'success');
+                            setTimeout(() => {
+                                window.location.href = "../html/activities.html";
+                            },
+                                1000)
+                        } else {
+
+
+                            if (true)
+                                this.activitiesController.addActivity(sessionStorage.getItem("userName"), this.RegisterActiviyCategorie.options[this.RegisterActiviyCategorie.selectedIndex].text, this.RegisterActivityDuration.options[this.RegisterActivityDuration.selectedIndex].text, this.RegisterLocation.value, this.RegisterDate.value, image, "normal", this.RegisterStartTime.value, sessionStorage.getItem("loggedUser"), sessionStorage.getItem("userPhotoUser"), "")
+                            console.log("inseriu")
+                            this.displayRegisterMessage('Activity registered with success!', 'success');
+                            setTimeout(() => {
+                                window.location.href = "../html/activities.html";
+                            },
+                                1000)
+
+
+
+                        }
+
+
                     }
 
 
@@ -232,9 +447,10 @@ export default class activityView {
         })
     }
 
+
+
     bindLocalStorage() {
         let activitiesListParse = this.activitiesController.getActivities()
-
         return activitiesListParse
 
 
@@ -279,6 +495,8 @@ export default class activityView {
 
             type = activi.type
             if (!activi.passed) {
+
+
                 if (type === "normal") {
                     cardResult += this._generateCards(activi)
                 } else {
@@ -287,11 +505,10 @@ export default class activityView {
                     }
                 }
             }
-
         }
-
         this.InsertNormalCard.innerHTML = cardResult
         this.sendRequestFunction()
+        this.myActivityDetails()
     }
 
     renderSpecialCard(activitiesListParse) {
@@ -299,18 +516,20 @@ export default class activityView {
         let type = ""
         for (const activi of activitiesListParse) {
             type = activi.type
+
             if (!activi.passed) {
+
 
                 if (type === "Recomended") {
 
                     cardRecomendedResult += this._generateSpecialCard(activi)
-
 
                 }
             }
         }
         this.InsertCard.innerHTML = cardRecomendedResult
         this.sendRequestFunction()
+        this.myActivityDetails()
     }
 
     _generateSpecialCard(activi) {
@@ -321,7 +540,7 @@ export default class activityView {
                   <h6 class="pr-2 text-muted">Recomended</h6>
                   <i class="fa fa-check-circle" style="color:#D60B52;" title="Recomended"></i>
                 </div>
-                <img class="rounded mt-3 mx-auto d-block" align="center" src="../images/cycling.png" alt="Running">
+                <img width="128" height="128" class="rounded mt-3 mx-auto d-block" align="center" src="${activi.image}" alt="Running">
                 <div class="card-body text-center">
                   <h5 class="card-title">${activi.name}</h5>
                   <p class="card-text mb-4">Category: ${activi.categorie}<br>
@@ -330,8 +549,8 @@ export default class activityView {
                     Date: ${activi.date}<br>
                     Duration: ${activi.duration}
                   </p>
-                  <button disabled id="" href="#" class="btn mx-auto d-block btnSendRequest" data-toggle="modal"
-                  data-target="#exampleModal">Send Request</button>
+                  <button id="${activi.id} ${activi.userEmail} ${activi.userPhoto}" href="#" class="btn mx-auto d-block btnSeeDetails" data-toggle="modal"
+                  data-target="#myActivityDetails">Participants</button>
                 </div>
               </div>`
                 return html
@@ -341,7 +560,7 @@ export default class activityView {
                   <h6 class="pr-2 text-muted">Recomended</h6>
                   <i class="fa fa-check-circle" style="color:#D60B52;" title="Recomended"></i>
                 </div>
-                <img class="rounded mt-3 mx-auto d-block" align="center" src="../images/cycling.png" alt="Running">
+                <img width="128" height="128" class="rounded mt-3 mx-auto d-block" align="center" src="${activi.image}" alt="Running">
                 <div class="card-body text-center">
                   <h5 class="card-title">${activi.name}</h5>
                   <p class="card-text mb-4">Category: ${activi.categorie}<br>
@@ -351,7 +570,7 @@ export default class activityView {
                     Duration: ${activi.duration}
                   </p>
                   <button id="${activi.id} ${activi.userEmail} ${activi.userPhoto}" href="#" class="btn mx-auto d-block btnSendRequest" data-toggle="modal"
-                    data-target="#exampleModal">Send Request</button>
+                    data-target="#sendRequestArea">Send Request</button>
                 </div>
               </div>`
                 return html
@@ -364,7 +583,7 @@ export default class activityView {
         if (activi.type === "normal") {
             if (activi.name === sessionStorage.getItem("userName")) {
                 let html = `<div class="card m-2" style="width: 18rem;">
-                <img class="rounded mt-3 mx-auto d-block" align="center" src="../images/saudavel.png" alt="Running">
+                <img width="128" height="128" class="rounded mt-3 mx-auto d-block" align="center" src="${activi.image}" alt="Running">
                 <div class="card-body text-center">
                   <h5 class="card-title">${activi.name}</h5>
                   <p class="card-text mb-4">Category: ${activi.categorie}<br>
@@ -373,15 +592,15 @@ export default class activityView {
                     Date: ${activi.date} <br>
                     Duration: ${activi.duration}
                   </p>
-                  <button disabled id="" href="#" class="btn mx-auto d-block btnSendRequest" data-toggle="modal"
-                  data-target="#exampleModal">Send Request</button>
+                  <button id="${activi.id} ${activi.userEmail} ${activi.userPhoto}" href="#" class="btn mx-auto d-block btnSeeDetails" data-toggle="modal"
+                  data-target="#myActivityDetails">Participants</button>
                 </div>
               </div>`
                 return html
 
             } else {
                 let html = `<div class="card m-2" style="width: 18rem;">
-                <img class="rounded mt-3 mx-auto d-block" align="center" src="../images/saudavel.png" alt="Running">
+                <img width="128" height="128" class="rounded mt-3 mx-auto d-block" align="center" src="${activi.image}" alt="Running">
                 <div class="card-body text-center">
                   <h5 class="card-title">${activi.name}</h5>
                   <p class="card-text mb-4">Category: ${activi.categorie}<br>
@@ -391,7 +610,7 @@ export default class activityView {
                     Duration: ${activi.duration}
                   </p>
                   <button id="${activi.id} ${activi.userEmail} ${activi.userPhoto}" href="#" class="btn mx-auto d-block btnSendRequest" data-toggle="modal"
-                    data-target="#exampleModal">Send Request</button>
+                    data-target="#sendRequestArea">Send Request</button>
                 </div>
               </div>`
                 return html
@@ -485,6 +704,12 @@ export default class activityView {
                                         arrayCard.push(getItems[i])
                                         specialCard.push(getItems[i])
                                     }
+                                    else {
+                                        if (categorieField === "Categorie" && durationField === getItems[i].duration && this.DateFilter.value === getItems[i].date) {
+                                            arrayCard.push(getItems[i])
+                                            specialCard.push(getItems[i])
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -500,8 +725,10 @@ export default class activityView {
         }
         this.renderCards(arrayCard)
         this.filterSpecialCard(specialCard)
-
         if (arrayCard.length < 1) {
+            this.displayErrorCardMessage("There are no activities", "danger")
+        }
+        if (specialCard.length < 1) {
             this.displayErrorCardMessage("There are no activities", "danger")
         }
     }
@@ -540,17 +767,22 @@ export default class activityView {
 
     displayRegisterMessage(message, type) {
         this.registerActivityMessage.innerHTML =
-            `<div class="alert alert-${type} d-flex justify-content-center" role="alert">${message}</div>`;
+            `<div class="alert alert-${type} d-flex justify-content-center" role="alert">${message}</div>`
     }
 
     displayErrorCardMessage(message, type) {
         this.InsertNormalCard.innerHTML = `<div class="alert alert-${type}" role="alert">
-        <img width="58" height="95" class="rounded mx-auto d-block" src="../images/test.png">
         <h4 class="alert-heading"></h4>
         <h4 class="text-center">${message}</h4>
         <hr>
         <p class="mb-0">If you need help please contact us by email: GeoMeHelpDesk@geome.com</p>
       </div>`
+        this.InsertCard.innerHTML = `<div class="alert alert-${type}" role="alert">
+      <h4 class="alert-heading"></h4>
+      <h4 class="text-center">${message}</h4>
+      <hr>
+      <p class="mb-0">If you need help please contact us by email: GeoMeHelpDesk@geome.com</p>
+    </div>`
     }
 
 }
