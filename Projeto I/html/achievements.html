@@ -15,44 +15,55 @@
 </head>
   <body>
     <nav id="menu" class="navbar navbar-expand-lg navbar-light  ">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-          <i class="fa fa-align-justify" style=" color: #D60B52;"></i>
-        </button>
-        
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-          <a class="navbar-brand" href="#"><img src="../images/icon_logo.png" class="float-left img-fluid " id="logotipoNav"></a>
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-              <li class="nav-item active ">
-                <a class="nav-link" href="#"><button value="activities" class="navButton "><i class="fa fa-users mr-2"></i><span>Activities</span></button> <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#"><button value="myData" class="navButton "><i class="fa fa-user mr-2"></i><span>My Data</span></button></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#"><button value="achieves" class="navButton "><i class="fa fa-trophy mr-2"></i><span>Achieves</span></button></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#"><button value="map" class="navButton "><i class="fa fa-map-marker mr-1"></i> <span>Map</span></button></a>
-              </li>
-            </ul>
-            
-    
-        </div>
-        <ul class="navbar-nav ml-auto  ">
-          <li class="nav-item">
-            <div class="row">
-              <a id="userControls" class="nav-link" href="#"><img src="https://via.placeholder.com/64" width="42" height="42" class="rounded-circle profileIMG "><br>Andrew</a>
-              <a href="#"><span class="badge badge-danger">9</span></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+        aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fa fa-align-justify" style=" color: #D60B52;"></i>
+      </button>
+  
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <a class="navbar-brand" href="#"><img src="../images/icon_logo.png" class="float-left img-fluid "
+            id="logotipoNav"></a>
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <li class="nav-item pr-3">
+            <a class="nav-link" href="../html/activities.html"><button value="activities" class="navButton "><i
+                  class="fa fa-users mr-2"></i><span>Activities</span></button> <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item pr-3">
+            <a class="nav-link" href="../html/map.html"><button value="map" class="navButton"><i class="fa fa-map-marker mr-1"></i>
+                <span>Map</span></button></a>
+          </li>
+          <li class="nav-item pr-3">
+            <div>
+              <a class="nav-link">
+                <div class="row">
+                  <div class="navButton" id="clock">
+                    <div id="time">
+                      
+                    </div>
+                  </div>
+                </div>
+              </a>
             </div>
           </li>
         </ul>
-        
-        
-    
-        
-          
-        
-      </nav>
+        <div class="col-lg-3">
+          <ul class="navbar-nav ml-auto  ">
+            <li class="nav-item">
+              <div class="dropdown">
+                <button data-toggle="dropdown" class="userbtn btn"><img id="userPhoto" src="" width="42" height="42" class="rounded-circle profileIMG"><a id="userControls" class="nav-link" href="#"></a></button>
+                <!--<a href="#"><span class="badge badge-danger">9</span></a>-->
+                <span class="caret"></span></button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                  <a href="../html/profile.html"  class="dropdown-item" type="button"><i class="fa fa-user"></i> My Profile</a>
+                  <a href="../html/achievements.html"  class="dropdown-item" type="button"><i class="fa fa-trophy"></i> My Achievemnts</a>
+                  <a href="#" id="btnLogout" class="dropdown-item" type="button"> <i class="fa fa-sign-out"></i> Logout</a>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
     <div class="container mt-5">
         <div class="row d-flex justify-content-center">

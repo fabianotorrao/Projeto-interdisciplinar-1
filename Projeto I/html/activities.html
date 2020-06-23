@@ -30,11 +30,11 @@
           id="logotipoNav"></a>
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item pr-3">
-          <a class="nav-link" href="#"><button value="activities" class="navButton "><i
+          <a class="nav-link" href="../html/activities.html"><button value="activities" class="navButton "><i
                 class="fa fa-users mr-2"></i><span>Activities</span></button> <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item pr-3">
-          <a class="nav-link" href="map.html"><button value="map" class="navButton"><i class="fa fa-map-marker mr-1"></i>
+          <a class="nav-link" href="../html/map.html"><button value="map" class="navButton"><i class="fa fa-map-marker mr-1"></i>
               <span>Map</span></button></a>
         </li>
         <li class="nav-item pr-3">
@@ -59,10 +59,10 @@
               <!--<a href="#"><span class="badge badge-danger">9</span></a>-->
               <span class="caret"></span></button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <button class="dropdown-item" type="button"><i class="fa fa-user"></i> My Profile</button>
-                <button class="dropdown-item" type="button"><i class="fa fa-cog"></i> Settings</button>
-                <button class="dropdown-item" type="button" data-toggle="modal" data-target="#notification"><i class="fa fa-bell"></i> Notifications</button>
-                <button id="btnLogout" class="dropdown-item" type="button"> <i class="fa fa-sign-out"></i> Logout</button>
+                <a href="../html/profile.html"  class="dropdown-item" type="button"><i class="fa fa-user"></i> My Profile</a>
+                <a href="../html/achievements.html"  class="dropdown-item" type="button"><i class="fa fa-trophy"></i> My Achievemnts</a>
+                <a href="#" class="dropdown-item" type="button" data-toggle="modal" data-target="#notification"><i class="fa fa-bell"></i> Notifications</a>
+                <a href="#" id="btnLogout" class="dropdown-item" type="button"> <i class="fa fa-sign-out"></i> Logout</a>
               </div>
             </div>
           </li>
@@ -86,12 +86,9 @@
         <div class="d-flex justify-content-between">
           <div id="dropdown" class="btn-group btn-group-justified pr-1">
             <div id="dropdown">
-              <select id="btnDuration" class="dropCategorieFilter timeDuration custom-select" id="inlineFormCustomSelectPref">
+              <select id="btnCategories" class="dropCategorieFilter timeDuration custom-select"
+                id="inlineFormCustomSelectPref">
                 <option selected>Categorie</option>
-                <option value="1">Running</option>
-                <option value="2">Cycling</option>
-                <option value="3">Swimming</option>
-                <option value="4">VolleyBall</option>
               </select>
             </div>
           </div>
@@ -122,13 +119,75 @@
             </div>
           </div>
         </div>
-        <button id="btnFilter" class="btn">Filter</button>
+        <button id="btnFilter" class="btn mb-3">Filter</button>
         <span id="warningEmptyFilter" class=""></span>
         <div class="mapSection">
           <div id="mapa" class="form-group pt-3">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387193.30596698663!2d-74.25986773739224!3d40.697149413874705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNova%20Iorque%2C%20NY%2C%20EUA!5e0!3m2!1spt-PT!2spt!4v1590074496793!5m2!1spt-PT!2spt"
-              frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+            <div>
+              <script>
+                let activities = JSON.parse(localStorage.activities)
+                let mycoords
+                console.log(navigator.geolocation.getCurrentPosition(showPosition))
+                function showPosition(position) {
+                    mycoords = position.coords
+                }
+                function initMap() {
+                    // Map options
+                    let options = {
+                        zoom: 10,
+                        center: { lat: +mycoords.latitude, lng: +mycoords.longitude }
+                    }
+        
+                    // New map
+                    let map = new google.maps.Map(document.querySelector('#mapa'), options);
+        
+                    // Array of markers
+                    let markers = [
+                    ];
+                    console.log(activities)
+                    activities.forEach(activity => {
+                        if (!activity.passed) {
+                            let crdn = activity.local.split(',')
+                            let marker = {
+                                coords: { lat: +crdn[0], lng: +crdn[1] },
+                                content: `<p style="font-weight: bold;">${activity.name}<p><p style="font-weight: bold;">${activity.categorie}<p><p style="font-weight: bold;">${activity.startTime}H<p>`
+                            }
+                            markers.push(marker)
+                            console.log(markers)
+        
+        
+                        }
+        
+                    });
+        
+        
+                    // Loop through markers
+                    for (let i = 0; i < markers.length; i++) {
+                        // Add marker
+                        addMarker(markers[i]);
+                    }
+        
+                    // Add Marker Function
+                    function addMarker(props) {
+                        let marker = new google.maps.Marker({
+                            position: props.coords,
+                            map: map,
+                        });
+        
+                        // Check content
+                        if (props.content) {
+                            let infoWindow = new google.maps.InfoWindow({
+                                content: props.content
+                            });
+        
+                            marker.addListener('click', function () {
+                                infoWindow.open(map, marker);
+                            });
+                        }
+                    }
+                }
+            </script>
+            </div>
           </div>
         </div>
       </div>
@@ -195,7 +254,7 @@
   </footer>
   <!-- Footer -->
   <!--Model Send Request-->
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  <div class="modal fade" id="sendRequestArea" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -238,10 +297,56 @@
       </div>
     </div>
   </div>
-  <!--DropDown User-->
-  
-  <!--DropDown User-->
   <!--Model Notifications-->
+  <!--My activity Details-->
+  <div class="modal fade" id="myActivityDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog dialog-modal" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Participants</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="col-lg-12">
+        <div id="myDetailsSection">
+         <div id="listUsers">
+
+         </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <!--My Activity Details-->
+
+  <!--Activity Details-->
+  <div class="modal fade" id="activityDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div id="bodyDetails" class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Activity Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div id="bodyDetails" class="modal-body">
+          <div id="notificationSection">
+                  <div id="cardInsert" class="d-flex justify-content-center">
+                   
+                  </div>   
+          </div>
+        </div>
+      </div>
+    </div>
+    <ANY data-toggle="modal" data-target="TARGET-2" data-dismiss="modal">...</ANY>
+  </div>
+  <!--Activity Details-->
+
+
+
   <!--Create Activity-->
   <div class="modal fade" id="CreateActivityModal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
@@ -268,12 +373,10 @@
           <div class="form-group text-center">
   
               <div id="dropdown ">
-                <select id="buttonCategoryDropModal" class="timeDuration custom-select col-lg-6 mt-2  modalField" id="inlineFormCustomSelectPref">
+                <select id="buttonCategoryDropModal" class="timeDuration custom-select col-lg-6 mt-2  modalField"
+                  id="inlineFormCustomSelectPref">
                   <option selected>Categorie</option>
-                  <option value="1">Running</option>
-                  <option value="2">Cycling</option>
-                  <option value="3">Swimming</option>
-                  <option value="4">VolleyBall</option>
+                  
                 </select>
               </div>
 
@@ -309,7 +412,7 @@
               data-target="html/activities.html">Register</button>
 
           </div>
-          <div id="mdlRegisterMessage" class="col-lg-12 d-flex justify-content-center">
+          <div id="alertMessage" class="col-lg-12 d-flex justify-content-center">
             
           </div>
 
@@ -327,6 +430,9 @@
 </div>
   <!--End Notification Modal-->
   <!-- Optional JavaScript -->
+  <script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWduFVfnkK7lTo7lFKTtnIQFN3d_OPt-Y&callback=initMap&libraries=&v=weekly"
+        defer></script>
   <script type="module" src="../js/app.js"></script>
   <script src="../js/HourFunction.js"></script>
   <!--<script src="../js/hourFunctionDisplay.js"></script>-->
